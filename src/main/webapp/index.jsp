@@ -6,27 +6,15 @@
     <title>Home</title>
 </head>
 <body>
-<jsp:include page="/navbar.jsp" />
 <div class="container">
-
-    <!-- NAVBAR - CHANGE FILENAME, ETC. -->
-
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Welcome to the Patient Data App!</h1>
-        </div>
-    </div>
+    <jsp:include page="/navbar.jsp" />
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
             <h1>Welcome to the Patient Data App!</h1>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Welcome to the Patient Data App!</h1>
-        </div>
+        <div class="col-md-2"></div>
     </div>
 
 </div>

@@ -7,9 +7,8 @@
   <title>Patient List</title>
 </head>
 <body>
-<jsp:include page="/navbar.jsp" />
 <div class="container">
-
+  <jsp:include page="/navbar.jsp" />
   <!-- NAVBAR - CHANGE FILENAME, ETC. -->
 
   <div class="row">
