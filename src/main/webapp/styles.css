@@ -10,7 +10,7 @@ body {
     position: relative;
     width: 100%;
     font-size: 1em;
-    border-radius: 0.1em;
+    border-radius: 0.2em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     text-align: center;
@@ -34,4 +34,35 @@ body {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 0.1em;
+}
+
+td, th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    border: 1px solid;
+    text-align: center;
+}
+
+#header_row {
+    background-color: cadetblue;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: thistle !important;
 }

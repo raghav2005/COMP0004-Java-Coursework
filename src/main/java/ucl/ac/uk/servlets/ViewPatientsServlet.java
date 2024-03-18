@@ -41,8 +41,6 @@ public class ViewPatientsServlet extends HttpServlet {
         ArrayList<ArrayList<String>> allRows = new ArrayList<>();
         ArrayList<String> row;
 
-        if (model.getDataFrame() == null) ModelFactory.getModel(filename);
-
         try {
             columnNames = model.getDataFrame().getColumnNames();
         } catch (NullPointerException exception) {

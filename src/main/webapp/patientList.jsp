@@ -14,7 +14,7 @@
   <div class="row">
     <div class="col-md-12">
       <table>
-        <tr>
+        <tr id="header_row">
           <%
             ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
             for (String columnName : columnNames) {
