@@ -40,4 +40,20 @@ public class Model {
 
     }
 
+    public ArrayList<ArrayList<String>> getAllRows() {
+        ArrayList<ArrayList<String>> allRows = new ArrayList<>();
+        ArrayList<String> row;
+
+        for (int i = 0; i < dataFrame.getRowCount(); i++) {
+            row = new ArrayList<>();
+            for (String columnName : dataFrame.getColumnNames()) {
+                row.add(dataFrame.getValue(columnName, i));
+            }
+            allRows.add(row);
+        }
+
+        return allRows;
+
+    }
+
 }

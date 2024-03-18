@@ -38,9 +38,6 @@ public class ViewPatientsServlet extends HttpServlet {
         }
 
         ArrayList<String> columnNames = null;
-        ArrayList<ArrayList<String>> allRows = new ArrayList<>();
-        ArrayList<String> row;
-
         try {
             columnNames = model.getDataFrame().getColumnNames();
         } catch (NullPointerException exception) {
@@ -50,15 +47,7 @@ public class ViewPatientsServlet extends HttpServlet {
             RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
             dispatch.forward(request, response);
         }
-
-        for (int i = 0; i < model.getDataFrame().getRowCount(); i++) {
-            row = new ArrayList<>();
-            assert columnNames != null;
-            for (String columnName : columnNames) {
-                row.add(model.getDataFrame().getValue(columnName, i));
-            }
-            allRows.add(row);
-        }
+        ArrayList<ArrayList<String>> allRows = model.getAllRows();
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
