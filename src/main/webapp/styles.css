@@ -11,8 +11,8 @@ body {
     width: 100%;
     font-size: 1em;
     border-radius: 0.1em;
-    padding-top: 0.25em;
-    padding-bottom: 0.25em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     text-align: center;
 }
 
@@ -27,4 +27,11 @@ body {
 
 .nav li {
     display: inline;
+    margin-right: 1em;
+}
+
+.navbar-nav{
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
 }

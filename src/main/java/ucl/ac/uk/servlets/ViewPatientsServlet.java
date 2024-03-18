@@ -42,7 +42,6 @@ public class ViewPatientsServlet extends HttpServlet {
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
         dispatch.forward(request, response);
-
     }
 
 }
