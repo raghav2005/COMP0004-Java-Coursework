@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class DataFrame {
 
-    public ArrayList<Column> columns = new ArrayList<>();
+    private ArrayList<Column> columns = new ArrayList<>();
 
     public void addColumn(String columnName) {
         columns.add(new Column(columnName));
@@ -25,17 +25,17 @@ public class DataFrame {
     }
 
     // NOTE: Optional
-    public Optional<String> getValue(String columnName, int row) { // indexing begins at 1
+    public String getValue(String columnName, int row) {
         for (Column column : columns) {
             if (column.getName().equals(columnName)) {
-                return Optional.of(column.getRowValue(row));
+                return column.getRowValue(row);
             }
         }
 
-        return Optional.empty();
+        return "";
     }
 
-    public void putValue(String columnName, int row, String value) { // indexing begins at 1
+    public void putValue(String columnName, int row, String value) {
         for (Column column : columns) {
             if (column.getName().equals(columnName)) {
                 column.setRowValue(row, value);

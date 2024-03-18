@@ -11,19 +11,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/patientList.html")
 public class ViewPatientsServlet extends HttpServlet {
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model = ModelFactory.getModel("data/patients100.csv");
 
-        // Then add the data to the request object that will be sent to the Java Server Page, so that
-        // the JSP can access the data (a Java data structure).
-        // request.setAttribute("patientNames", patientNames);
-        request.setAttribute("columnNames", model.getDataFrame().getColumnNames());
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Model model;
+        try {
+            model = ModelFactory.getModel("data/patients100.csv");
+        } catch (IOException exception) {
+            throw new IOException(exception);
+        }
+
+        ArrayList<String> columnNames = model.getDataFrame().getColumnNames();
+        ArrayList<ArrayList<String>> allRows = new ArrayList<>();
+        ArrayList<String> row = null;
+
+        for (int i = 0; i < model.getDataFrame().getRowCount(); i++) {
+            row = new ArrayList<>();
+            for (String columnName : columnNames) {
+                row.add(model.getDataFrame().getValue(columnName, i));
+            }
+            allRows.add(row);
+        }
+
+        request.setAttribute("columnNames", columnNames);
+        request.setAttribute("allRows", allRows);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
         dispatch.forward(request, response);
+
     }
+
 }

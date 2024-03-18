@@ -7,15 +7,35 @@
 </head>
 <body>
 <div class="main">
+
   <h2>Patients:</h2>
-  <ul>
+
+  <table style="width: 100%">
+
+    <tr>
+      <%
+        ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
+        for (String columnName : columnNames) {
+      %>
+        <th><%= columnName %></th>
+      <% } %>
+    </tr>
+
     <%
-      ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
-      for (String columnName : columnNames) {
+      ArrayList<ArrayList<String>> allRows = (ArrayList<ArrayList<String>>) request.getAttribute("allRows");
+      for (ArrayList<String> row : allRows) {
     %>
-      <li><%=columnName%></li>
+      <tr>
+        <%
+          for (String field : row) {
+        %>
+          <td><%= field %></td>
+        <% } %>
+      </tr>
     <% } %>
-  </ul>
+
+  </table>
+
 </div>
 </body>
 </html>

@@ -19,12 +19,12 @@ public class Column {
         return rows.size();
     }
 
-    public String getRowValue(int rowNumber) { // indexing begins at 1
-        return rows.get(rowNumber - 1);
+    public String getRowValue(int rowNumber) {
+        return rows.get(rowNumber);
     }
 
-    public void setRowValue(int rowNumber, String newValue) { // indexing begins at 1
-        rows.set(rowNumber - 1, newValue);
+    public void setRowValue(int rowNumber, String newValue) {
+        rows.set(rowNumber, newValue);
     }
 
     public void addRowValue(String newValue) {
