@@ -13,6 +13,8 @@ import java.io.IOException;
 public class HomePageServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setAttribute("activeNavTab", "home");
+
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/index.jsp");
         dispatch.forward(request, response);
