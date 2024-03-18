@@ -9,8 +9,22 @@ public class ModelFactory {
     public static Model getModel(String filename) throws IOException {
         if (model == null) {
             model = new Model();
-            model.readData(filename);
+
+            try {
+                model.readData(filename);
+            } catch (IOException exception) {
+                throw new IOException(exception);
+            }
         }
+
+        return model;
+    }
+
+    public static Model getModel() {
+        if (model == null) {
+            model = new Model();
+        }
+
         return model;
     }
 

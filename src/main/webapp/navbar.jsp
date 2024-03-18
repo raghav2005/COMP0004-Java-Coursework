@@ -15,7 +15,8 @@
                             <a class="nav-link" href="/" id="home">Home</a>
                         </li>
 
-                        <% if ((!((String) request.getAttribute("activeNavTab") == "home")) ||
+                        <% if ((!((String) request.getAttribute("activeNavTab") == "home") &&
+                                (String) request.getAttribute("activeNavTab") == "error")||
                                 ((String) request.getAttribute("activeNavTab") == "home" &&
                                         !((String) request.getAttribute("filename") == null))) { %>
                             <li class="nav-item">
@@ -33,10 +34,10 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <% for (int i = 0; i < 3; i++) { %>
-            <br />
-        <% } %>
-    </div>
-</div>
+<%--<div class="row">--%>
+<%--    <div class="col-md-12">--%>
+<%--        <% for (int i = 0; i < 3; i++) { %>--%>
+<%--            <br />--%>
+<%--        <% } %>--%>
+<%--    </div>--%>
+<%--</div>--%>

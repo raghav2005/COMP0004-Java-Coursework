@@ -33,8 +33,6 @@ public class DataLoader {
             }
 
         } catch (IOException exception) {
-            System.err.println("IOException: " + exception.getMessage());
-            exception.printStackTrace();
             throw new IOException(exception);
         }
 

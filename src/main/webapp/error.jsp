@@ -7,8 +7,8 @@
 <body>
 <div class="container-fluid">
     <jsp:include page="/navbar.jsp" />
-    <h1>Error</h1>
-    <p><%= (String) request.getAttribute("errorMessage") %></p>
+    <h1 style="color: red; text-align: center">Error</h1>
+    <p style="color: red; text-align: center"><%= (String) request.getAttribute("errorMessage") %></p>
 </div>
 </body>
 </html>

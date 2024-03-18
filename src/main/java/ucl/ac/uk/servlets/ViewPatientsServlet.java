@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class ViewPatientsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model;
-        String filename = request.getParameter("filename");
+        Model model = null;
+        String filename = "data/" + request.getParameter("filename");
 
-        if (filename == null || filename.isEmpty()) {
+        if (filename.equals("data/") || filename.equals("data/null")) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
@@ -29,20 +29,31 @@ public class ViewPatientsServlet extends HttpServlet {
             model = ModelFactory.getModel(filename);
         } catch (IOException exception) {
             request.setAttribute("errorMessage", "Error: " + exception.getMessage());
-//            request.getRequestDispatcher("error.jsp").forward(request, response);
-//            response.sendRedirect(request.getContextPath() + "/error.html");
+
             ServletContext context = getServletContext();
             RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
             dispatch.forward(request, response);
+
             return;
         }
 
-        ArrayList<String> columnNames = model.getDataFrame().getColumnNames();
+        ArrayList<String> columnNames = null;
         ArrayList<ArrayList<String>> allRows = new ArrayList<>();
         ArrayList<String> row;
 
+        try {
+            columnNames = model.getDataFrame().getColumnNames();
+        } catch (NullPointerException exception) {
+            request.setAttribute("errorMessage", "Error: " + exception.getMessage());
+
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+            dispatch.forward(request, response);
+        }
+
         for (int i = 0; i < model.getDataFrame().getRowCount(); i++) {
             row = new ArrayList<>();
+            assert columnNames != null;
             for (String columnName : columnNames) {
                 row.add(model.getDataFrame().getValue(columnName, i));
             }
