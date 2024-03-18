@@ -7,7 +7,7 @@
   <title>Patient List</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
   <jsp:include page="/navbar.jsp" />
   <!-- NAVBAR - CHANGE FILENAME, ETC. -->
 

@@ -18,10 +18,23 @@ public class ViewPatientsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model;
+        String filename = request.getParameter("filename");
+
+        if (filename == null || filename.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
+
         try {
-            model = ModelFactory.getModel("data/patients100.csv");
+            model = ModelFactory.getModel(filename);
         } catch (IOException exception) {
-            throw new IOException(exception);
+            request.setAttribute("errorMessage", "Error: " + exception.getMessage());
+//            request.getRequestDispatcher("error.jsp").forward(request, response);
+//            response.sendRedirect(request.getContextPath() + "/error.html");
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+            dispatch.forward(request, response);
+            return;
         }
 
         ArrayList<String> columnNames = model.getDataFrame().getColumnNames();
@@ -39,6 +52,7 @@ public class ViewPatientsServlet extends HttpServlet {
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
         request.setAttribute("activeNavTab", "patientList");
+        request.setAttribute("filename", filename);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");

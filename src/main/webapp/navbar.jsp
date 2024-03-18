@@ -10,15 +10,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="nav navbar-nav me-auto">
+
                         <li class="nav-item">
                             <a class="nav-link" href="/" id="home">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/patientList.html" id="patientList">Patient List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><%= request.getContextPath() %></a>
-                        </li>
+
+                        <% if ((!((String) request.getAttribute("activeNavTab") == "home")) ||
+                                ((String) request.getAttribute("activeNavTab") == "home" &&
+                                        !((String) request.getAttribute("filename") == null))) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patientList.html" id="patientList">Patient List</a>
+                            </li>
+                        <% } %>
+
                     </ul>
                     <script type="text/javascript">
                         document.getElementById("<%= (String) request.getAttribute("activeNavTab") %>").classList.add("active");
