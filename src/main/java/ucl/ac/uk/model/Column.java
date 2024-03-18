@@ -1,4 +1,4 @@
-package ucl.ac.uk.dataHolders;
+package ucl.ac.uk.model;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,10 @@ public class Column {
 
     private String name;
     private ArrayList<String> rows = new ArrayList<>();
+
+    public Column(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

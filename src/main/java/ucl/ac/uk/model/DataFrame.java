@@ -1,4 +1,4 @@
-package ucl.ac.uk.dataHolders;
+package ucl.ac.uk.model;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -7,8 +7,8 @@ public class DataFrame {
 
     public ArrayList<Column> columns = new ArrayList<>();
 
-    public void addColumn(Column column) {
-        columns.add(column);
+    public void addColumn(String columnName) {
+        columns.add(new Column(columnName));
     }
 
     public ArrayList<String> getColumnNames() {
