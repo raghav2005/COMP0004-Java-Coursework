@@ -26,7 +26,7 @@ public class ViewPatientsServlet extends HttpServlet {
 
         ArrayList<String> columnNames = model.getDataFrame().getColumnNames();
         ArrayList<ArrayList<String>> allRows = new ArrayList<>();
-        ArrayList<String> row = null;
+        ArrayList<String> row;
 
         for (int i = 0; i < model.getDataFrame().getRowCount(); i++) {
             row = new ArrayList<>();

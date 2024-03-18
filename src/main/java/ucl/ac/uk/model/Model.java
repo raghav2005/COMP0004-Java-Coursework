@@ -6,7 +6,7 @@ public class Model {
 
     private DataFrame dataFrame;
 
-    public void loadData(String filename) throws IOException {
+    public void readData(String filename) throws IOException {
         try {
             dataFrame = new DataLoader().loadData(filename);
         } catch (IOException exception) {

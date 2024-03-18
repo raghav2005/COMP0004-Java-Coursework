@@ -20,7 +20,8 @@ public class DataLoader {
             for (CSVRecord csvRecord : csvParser) {
                 if (counter == 0) {
                     for (int i = 0; i < csvRecord.size(); i++) {
-                        dataFrame.addColumn(csvRecord.get(i));
+                        Column newColumn = new Column(csvRecord.get(i));
+                        dataFrame.addColumn(newColumn);
                     }
                     counter++;
                 }
@@ -34,7 +35,7 @@ public class DataLoader {
         } catch (IOException exception) {
             System.err.println("IOException: " + exception.getMessage());
             exception.printStackTrace();
-            throw new IOException(exception.getCause());
+            throw new IOException(exception);
         }
 
         return dataFrame;

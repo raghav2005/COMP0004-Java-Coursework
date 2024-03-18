@@ -1,14 +1,17 @@
 package ucl.ac.uk.model;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class DataFrame {
 
-    private ArrayList<Column> columns = new ArrayList<>();
+    private ArrayList<Column> columns;
 
-    public void addColumn(String columnName) {
-        columns.add(new Column(columnName));
+    public DataFrame() {
+        this.columns = new ArrayList<>();
+    }
+
+    public void addColumn(Column column) {
+        columns.add(column);
     }
 
     public ArrayList<String> getColumnNames() {
@@ -21,10 +24,10 @@ public class DataFrame {
     }
 
     public int getRowCount() {
-        return columns.getFirst().getSize();
+        if (columns.isEmpty()) return 0;
+        else return columns.getFirst().getSize();
     }
 
-    // NOTE: Optional
     public String getValue(String columnName, int row) {
         for (Column column : columns) {
             if (column.getName().equals(columnName)) {
@@ -32,13 +35,14 @@ public class DataFrame {
             }
         }
 
-        return "";
+        return null;
     }
 
     public void putValue(String columnName, int row, String value) {
         for (Column column : columns) {
             if (column.getName().equals(columnName)) {
                 column.setRowValue(row, value);
+                break;
             }
         }
     }
@@ -47,6 +51,7 @@ public class DataFrame {
         for (Column column : columns) {
             if (column.getName().equals(columnName)) {
                 column.addRowValue(value);
+                break;
             }
         }
     }

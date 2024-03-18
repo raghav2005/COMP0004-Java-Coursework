@@ -8,6 +8,8 @@
 <body>
 <div class="main">
 
+  <!-- NAVBAR - CHANGE FILENAME, ETC. -->
+
   <h2>Patients:</h2>
 
   <table style="width: 100%">
