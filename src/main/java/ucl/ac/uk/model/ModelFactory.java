@@ -15,6 +15,8 @@ public class ModelFactory {
             } catch (IOException exception) {
                 throw new IOException(exception);
             }
+        } else {
+            model.readData(filename);
         }
 
         return model;

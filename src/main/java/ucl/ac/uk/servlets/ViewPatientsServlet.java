@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ViewPatientsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model = null;
+        Model model;
         String filename = "data/" + request.getParameter("filename");
 
         if (filename.equals("data/") || filename.equals("data/null")) {
@@ -40,6 +40,8 @@ public class ViewPatientsServlet extends HttpServlet {
         ArrayList<String> columnNames = null;
         ArrayList<ArrayList<String>> allRows = new ArrayList<>();
         ArrayList<String> row;
+
+        if (model.getDataFrame() == null) ModelFactory.getModel(filename);
 
         try {
             columnNames = model.getDataFrame().getColumnNames();

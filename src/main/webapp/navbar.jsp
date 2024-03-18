@@ -16,7 +16,7 @@
                         </li>
 
                         <% if ((!((String) request.getAttribute("activeNavTab") == "home") &&
-                                (String) request.getAttribute("activeNavTab") == "error")||
+                                !((String) request.getAttribute("activeNavTab") == "error")) ||
                                 ((String) request.getAttribute("activeNavTab") == "home" &&
                                         !((String) request.getAttribute("filename") == null))) { %>
                             <li class="nav-item">
