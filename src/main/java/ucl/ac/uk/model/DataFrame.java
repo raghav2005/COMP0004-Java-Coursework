@@ -56,4 +56,13 @@ public class DataFrame {
         }
     }
 
+    public ArrayList<String> getRow(int rowNumber) {
+        ArrayList<String> row = new ArrayList<>();
+        for (Column column : columns) {
+            row.add(getValue(column.getName(), rowNumber));
+        }
+
+        return row;
+    }
+
 }

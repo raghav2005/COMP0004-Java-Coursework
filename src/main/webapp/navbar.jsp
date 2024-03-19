@@ -1,43 +1,54 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    boolean displayPatientStuff = ((!((String) request.getAttribute("activeNavTab") == "home") &&
+            !((String) request.getAttribute("activeNavTab") == "error")) ||
+            ((String) request.getAttribute("activeNavTab") == "home" &&
+                    !((String) request.getAttribute("filename") == null)));
+%>
+
 <div class="row">
     <div class="col-md-12">
         <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
             <div class="container-fluid navbar_wrapper">
+
                 <a class="navbar-brand" href="#">Patient Data App</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="nav navbar-nav me-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/" id="home">Home</a>
+                            <a class="nav-link" href="<%= request.getContextPath() %>/" id="home">Home</a>
                         </li>
 
-                        <% if ((!((String) request.getAttribute("activeNavTab") == "home") &&
-                                !((String) request.getAttribute("activeNavTab") == "error")) ||
-                                ((String) request.getAttribute("activeNavTab") == "home" &&
-                                        !((String) request.getAttribute("filename") == null))) { %>
+                        <% if (displayPatientStuff) { %>
                             <li class="nav-item">
-                                <a class="nav-link" href="/patientList.html" id="patientList">Patient List</a>
+                                <a class="nav-link" href="<%= request.getContextPath() %>/patientList.html" id="patientList">Patient List</a>
                             </li>
                         <% } %>
 
                     </ul>
+
                     <script type="text/javascript">
                         document.getElementById("<%= (String) request.getAttribute("activeNavTab") %>").classList.add("active");
                     </script>
                 </div>
+
+                <% if (displayPatientStuff) { %>
+                <div class="search">
+                    <form action="<%= request.getContextPath() %>/patientList.html/search" method="get">
+                        <input type="text" placeholder="Search..." name="search" />
+                        <button type="submit">
+                            <i class="fa fa-search" style="font-size: 1.35em;"></i>
+                        </button>
+                    </form>
+                </div>
+                <% } %>
+
             </div>
         </nav>
     </div>
 </div>
-
-<%--<div class="row">--%>
-<%--    <div class="col-md-12">--%>
-<%--        <% for (int i = 0; i < 3; i++) { %>--%>
-<%--            <br />--%>
-<%--        <% } %>--%>
-<%--    </div>--%>
-<%--</div>--%>

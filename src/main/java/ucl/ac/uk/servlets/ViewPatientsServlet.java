@@ -16,13 +16,15 @@ import java.util.ArrayList;
 @WebServlet("/patientList.html")
 public class ViewPatientsServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected static String filename;
+
+    protected String processFilename(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model;
         String filename = "data/" + request.getParameter("filename");
 
         if (filename.equals("data/") || filename.equals("data/null")) {
             response.sendRedirect(request.getContextPath() + "/");
-            return;
+            return null;
         }
 
         try {
@@ -34,8 +36,15 @@ public class ViewPatientsServlet extends HttpServlet {
             RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
             dispatch.forward(request, response);
 
-            return;
+            return null;
         }
+
+        return filename;
+
+    }
+
+    protected ArrayList<String> processColumnNames(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Model model = ModelFactory.getModel();
 
         ArrayList<String> columnNames = null;
         try {
@@ -46,7 +55,23 @@ public class ViewPatientsServlet extends HttpServlet {
             ServletContext context = getServletContext();
             RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
             dispatch.forward(request, response);
+
+            return null;
         }
+
+        return columnNames;
+
+    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        filename = processFilename(request, response);
+        if (filename == null) return;
+
+        Model model = ModelFactory.getModel();
+
+        ArrayList<String> columnNames = processColumnNames(request, response);
+        if (columnNames == null) return;
+
         ArrayList<ArrayList<String>> allRows = model.getAllRows();
 
         request.setAttribute("columnNames", columnNames);
@@ -57,6 +82,7 @@ public class ViewPatientsServlet extends HttpServlet {
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
         dispatch.forward(request, response);
+
     }
 
 }

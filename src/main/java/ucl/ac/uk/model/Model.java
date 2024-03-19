@@ -56,4 +56,23 @@ public class Model {
 
     }
 
+    public ArrayList<ArrayList<String>> search(String searchWord) {
+        ArrayList<ArrayList<String>> allRows = new ArrayList<>();
+
+        for (int i = 0; i < dataFrame.getRowCount(); i++) {
+            ArrayList<String> row = null;
+
+            for (String columnName : dataFrame.getColumnNames()) {
+                if (dataFrame.getValue(columnName, i).contains(searchWord)) {
+                    row = dataFrame.getRow(i);
+                }
+            }
+
+            if (!(row == null)) allRows.add(row);
+        }
+
+        return allRows;
+
+    }
+
 }
