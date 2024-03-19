@@ -3,6 +3,10 @@ package ucl.ac.uk.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Model {
 
@@ -76,5 +80,15 @@ public class Model {
     }
 
     // POTENTIAL ADDITIONAL FEATURE: button for specific search / fuzzy search
+
+    public ArrayList<ArrayList<String>> sort(String columnName, ArrayList<ArrayList<String>> allRows, boolean reversed) {
+        if (columnName == null || columnName.isEmpty()) return allRows;
+
+        ArrayList<String> columnNames = dataFrame.getColumnNames();
+        int columnIndex = IntStream.range(0, columnNames.size()).filter(i -> columnNames.get(i).equals(columnName)).findFirst().orElse(0);
+        Stream<ArrayList<String>> necessaryData = allRows.stream().sorted(Comparator.comparing(row -> row.get(columnIndex)));
+
+        return !reversed ? necessaryData.collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(necessaryData.collect(Collectors.toList()).reversed());
+    }
 
 }

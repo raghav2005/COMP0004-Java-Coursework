@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/search")
-public class SearchServlet extends ViewPatientsServlet {
+@WebServlet("/sort")
+public class SortServlet extends ViewPatientsServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -22,7 +22,8 @@ public class SearchServlet extends ViewPatientsServlet {
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
-        ArrayList<ArrayList<String>> allRows = model.search(request.getParameter("search"));
+        String searchWord = request.getParameter("search") == null ? "" : request.getParameter("search");
+        ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !request.getParameter("order").equals("ascending"));
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);

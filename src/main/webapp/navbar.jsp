@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -38,6 +39,31 @@
                 </div>
 
                 <% if (displayPatientStuff) { %>
+                    <div class="sort" style="margin-right: 3em;">
+                        <form action="<%= request.getContextPath() %>/sort" method="get" id="sort_form">
+
+                            <select name="sort" id="sort" required>
+                                <%
+                                    ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
+                                    for (String columnName : columnNames) {
+                                %>
+                                <option value="<%= columnName %>"><%= columnName %></option>
+                                <% } %>
+                            </select>
+
+                            <select name="order" id="order" required>
+                                <option value="ascending">ascending</option>
+                                <option value="descending">descending</option>
+                            </select>
+
+                            <button type="submit">
+                                <i class="fa fa-solid fa-sort"></i>
+                            </button>
+                            <button type="button" onclick="document.getElementsByName('sort').value = ''; document.getElementById('sort_form').submit();">Reset</button>
+
+                        </form>
+                    </div>
+
                     <div class="search">
                         <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
                             <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
