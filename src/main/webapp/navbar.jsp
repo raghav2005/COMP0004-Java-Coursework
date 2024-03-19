@@ -62,12 +62,6 @@
                                 <i class="fa fa-solid fa-sort"></i>
                             </button>
                             <button type="button" onclick="resetSort()">Reset</button>
-                            <script type="text/javascript">
-                                function resetSort() {
-                                    <% request.setAttribute("sort_field", ""); %>
-                                    document.getElementById("sort_form").submit();
-                                }
-                            </script>
                         </form>
                     </div>
 
@@ -79,16 +73,10 @@
                                 <i class="fa fa-search" style="font-size: 1.35em;"></i>
                             </button>
                             <button type="button" onclick="resetSearch()">Reset</button>
-                            <script type="text/javascript">
-                                function resetSearch() {
-                                    <% request.setAttribute("search_field", ""); %>
-                                    document.getElementsByName("search")[0].value = "";
-                                    document.getElementsByName("search")[1].value = "";
-                                    document.getElementById("search_form").submit();
-                                }
-                            </script>
                         </form>
                     </div>
+
+                    <jsp:include page="resetFeatures.jsp" />
                 <% } %>
 
             </div>
