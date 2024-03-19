@@ -1,7 +1,11 @@
 package ucl.ac.uk.model;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -90,6 +94,52 @@ public class Model {
         Stream<ArrayList<String>> necessaryData = allRows.stream().sorted(Comparator.comparing(row -> row.get(columnIndex)));
 
         return !reversed ? necessaryData.collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(necessaryData.collect(Collectors.toList()).reversed());
+    }
+
+    private void writeData(String filename, ArrayList<ArrayList<String>> allRows) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+
+            int numberOfColumns = dataFrame.getColumnNames().size();
+
+            for (int i = 0; i < numberOfColumns; i++) {
+                if (i == numberOfColumns - 1) writer.write(dataFrame.getColumnNames().get(i));
+                else writer.write(dataFrame.getColumnNames().get(i) + ",");
+            }
+            writer.newLine();
+
+            for (ArrayList<String> row : allRows) {
+                int rowSize = row.size();
+                for (int i = 0; i < rowSize; i ++) {
+                    if (i == rowSize - 1) writer.write(row.get(i));
+                    else writer.write(row.get(i) + ",");
+                }
+                writer.newLine();
+            }
+
+        } catch (IOException exception) {
+            throw new IOException("Error writing data to file: " + exception.getMessage());
+        }
+
+    }
+
+    public String deleteAndWrite(String originalFilename, String id) throws IOException {
+        ArrayList<ArrayList<String>> allRows = getAllRows().stream().filter(row -> !row.getFirst().equals(id)).collect(Collectors.toCollection(ArrayList::new));
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+
+        String newFilename = originalFilename.substring(0, originalFilename.lastIndexOf(".")) + "_" + formattedDateTime + ".csv";
+
+        try {
+            writeData(newFilename, allRows);
+        } catch (IOException exception) {
+            throw new IOException(exception.getMessage());
+        }
+        readData(newFilename);
+
+        return newFilename;
+
     }
 
 }

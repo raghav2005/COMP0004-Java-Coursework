@@ -1,8 +1,5 @@
 package ucl.ac.uk.servlets;
 
-import ucl.ac.uk.model.Model;
-import ucl.ac.uk.model.ModelFactory;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

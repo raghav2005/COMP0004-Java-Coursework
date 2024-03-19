@@ -1,6 +1,5 @@
 package ucl.ac.uk.servlets;
 
-import ucl.ac.uk.model.Model;
 import ucl.ac.uk.model.ModelFactory;
 
 import javax.servlet.RequestDispatcher;
@@ -17,12 +16,15 @@ public class DeleteRecordServlet extends ViewPatientsServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        System.err.println("delete: " + request.getParameter("delete"));
+        ViewPatientsServlet.filename = model.deleteAndWrite(filename, request.getParameter("delete"));
+
+//        model = ModelFactory.getModel(filename);
+
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
         ArrayList<ArrayList<String>> allRows = getAllRows(request);
-
-        System.err.println("delete: " + request.getParameter("delete"));
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
