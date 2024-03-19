@@ -21,7 +21,11 @@
           <th><%= columnName %></th>
           <% } %>
 
-          <th colspan="2"><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-plus"></i></button></th>
+          <form action="<%= request.getContextPath() %>/add" method="get" id="add_form">
+            <th colspan="2">
+              <button type="submit" class="button" style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-plus"></i></button>
+            </th>
+          </form>
 
         </tr>
         <%
@@ -41,10 +45,10 @@
                 <% } %>
               <% } %>
 
-              <td><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-pencil"></i></button></td>
+              <td><button class="button" style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-pencil"></i></button></td>
 
               <td>
-                <button style="height: 2em; width: 2em;" onclick="deleteRecord('<%= row.getFirst() %>')"><i class="fa fa-sharp fa-solid fa-minus"></i></button>
+                <button class="button" style="height: 2em; width: 2em;" onclick="deleteRecord('<%= row.getFirst() %>')"><i class="fa fa-sharp fa-solid fa-minus"></i></button>
               </td>
 
               <script type="text/javascript">

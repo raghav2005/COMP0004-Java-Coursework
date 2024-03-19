@@ -14,7 +14,7 @@
             <div class="container-fluid navbar_wrapper">
 
                 <a class="navbar-brand" href="#">Patient Data App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -58,10 +58,10 @@
 
                             <input type="text" name="search" value="<%= (String) request.getAttribute("search_field") %>" hidden="hidden"/>
 
-                            <button type="submit">
+                            <button type="submit" class="button">
                                 <i class="fa fa-solid fa-sort"></i>
                             </button>
-                            <button type="button" onclick="resetSort()">Reset</button>
+                            <button type="button" onclick="resetSort()" class="button">Reset</button>
                         </form>
                     </div>
 
@@ -69,10 +69,10 @@
                         <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
                             <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
                             <input type="text" placeholder="Search..." name="search" value="<%= (String) request.getAttribute("search_field") %>"/>
-                            <button type="submit">
+                            <button type="submit" class="button">
                                 <i class="fa fa-search" style="font-size: 1.35em;"></i>
                             </button>
-                            <button type="button" onclick="resetSearch()">Reset</button>
+                            <button type="button" onclick="resetSearch()" class="button">Reset</button>
                         </form>
                     </div>
 

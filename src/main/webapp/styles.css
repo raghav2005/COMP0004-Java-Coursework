@@ -66,3 +66,11 @@ tr:nth-child(even) {
 tr:hover {
     background-color: thistle !important;
 }
+
+button, .button, .button button {
+    background-color: transparent;
+}
+
+button:hover, .button:hover {
+    background-color: darkseagreen;
+}

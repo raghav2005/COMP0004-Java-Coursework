@@ -31,7 +31,7 @@
                         <option value="<%= fileName %>"><%= fileName %></option>
                     <% } %>
                 </select>
-                <button type="submit">View Patient Data</button>
+                <button type="submit" class="button">View Patient Data</button>
             </form>
         </div>
         <div class="col-md-4"></div>
