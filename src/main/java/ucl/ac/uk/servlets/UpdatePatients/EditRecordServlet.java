@@ -51,9 +51,7 @@ public class EditRecordServlet extends AbstractPatientsFeaturesServlet {
         for (String columnName : columnNames) {
             newRow.add(request.getParameter(columnName + "_field"));
         }
-//        model.addAndWrite(filename, newRow);
-
-        System.err.println("newRow: " + newRow);
+        model.editAndWrite(filename, newRow, request.getParameter("ID_field"));
 
         super.processRequestAndResponse(request, response);
 

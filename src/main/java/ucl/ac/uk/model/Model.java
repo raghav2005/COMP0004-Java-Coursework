@@ -176,4 +176,23 @@ public class Model {
 
     }
 
+    public void editAndWrite(String originalFilename, ArrayList<String> rowValues, String newRowID) throws IOException {
+        ArrayList<ArrayList<String>> allRows = getAllRows();
+
+        for (int i = 0; i < allRows.size(); i++) {
+            if (allRows.get(i).getFirst().equals(newRowID)) allRows.set(i, rowValues);
+        }
+
+        String newFilename = getNewFilename(originalFilename);
+
+        try {
+            writeData(newFilename, allRows);
+        } catch (IOException exception) {
+            throw new IOException(exception.getMessage());
+        }
+
+        readData(newFilename);
+
+    }
+
 }
