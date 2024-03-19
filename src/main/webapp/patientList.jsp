@@ -44,12 +44,12 @@
               <td><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-pencil"></i></button></td>
 
               <td>
-                <button style="height: 2em; width: 2em;" onclick="deleteRecord()"><i class="fa fa-sharp fa-solid fa-minus"></i></button>
+                <button style="height: 2em; width: 2em;" onclick="deleteRecord('<%= row.getFirst() %>')"><i class="fa fa-sharp fa-solid fa-minus"></i></button>
               </td>
 
               <script type="text/javascript">
-                function deleteRecord() {
-                  document.getElementById("delete_field").value = "<%= row.getFirst() %>";
+                function deleteRecord(delete_id) {
+                  document.getElementById("delete_field").value = delete_id;
                   document.getElementById("delete_form").submit();
                 }
               </script>

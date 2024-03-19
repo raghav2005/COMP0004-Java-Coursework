@@ -17,12 +17,10 @@ public class SortServlet extends ViewPatientsServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model = ModelFactory.getModel();
-
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
-        ArrayList<ArrayList<String>> allRows = getAllRows(request, response);
+        ArrayList<ArrayList<String>> allRows = getAllRows(request);
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);

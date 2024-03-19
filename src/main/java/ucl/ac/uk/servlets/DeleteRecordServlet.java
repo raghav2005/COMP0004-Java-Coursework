@@ -17,12 +17,10 @@ public class DeleteRecordServlet extends ViewPatientsServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model = ModelFactory.getModel();
-
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
-        ArrayList<ArrayList<String>> allRows = getAllRows(request, response);
+        ArrayList<ArrayList<String>> allRows = getAllRows(request);
 
         System.err.println("delete: " + request.getParameter("delete"));
 

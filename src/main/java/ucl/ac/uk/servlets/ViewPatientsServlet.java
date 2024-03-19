@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class ViewPatientsServlet extends HttpServlet {
 
     protected static String filename;
+    protected static Model model;
 
     protected String processFilename(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model;
         String filename = "data/" + request.getParameter("filename");
 
         if (filename.equals("data/") || filename.equals("data/null")) {
@@ -44,9 +44,9 @@ public class ViewPatientsServlet extends HttpServlet {
     }
 
     protected ArrayList<String> processColumnNames(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Model model = ModelFactory.getModel();
+        model = ModelFactory.getModel();
 
-        ArrayList<String> columnNames = null;
+        ArrayList<String> columnNames;
         try {
             columnNames = model.getDataFrame().getColumnNames();
         } catch (NullPointerException exception) {
@@ -63,9 +63,7 @@ public class ViewPatientsServlet extends HttpServlet {
 
     }
 
-    protected ArrayList<ArrayList<String>> getAllRows(HttpServletRequest request, HttpServletResponse response) {
-        Model model = ModelFactory.getModel();
-
+    protected ArrayList<ArrayList<String>> getAllRows(HttpServletRequest request) {
         String searchWord = request.getParameter("search") == null ? "" : request.getParameter("search");
         String order = request.getParameter("order") == null ? "" : request.getParameter("order");
 
@@ -82,7 +80,7 @@ public class ViewPatientsServlet extends HttpServlet {
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
-        ArrayList<ArrayList<String>> allRows = getAllRows(request, response);
+        ArrayList<ArrayList<String>> allRows = getAllRows(request);
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
