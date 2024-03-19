@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/search")
-public class SearchServlet extends AbstractPatientsFeaturesServlet {
+@WebServlet({"/search", "/sort"})
+public class SearchAndSortServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

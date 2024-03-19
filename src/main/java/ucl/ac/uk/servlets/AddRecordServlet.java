@@ -1,7 +1,5 @@
 package ucl.ac.uk.servlets;
 
-import ucl.ac.uk.model.ModelFactory;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -9,30 +7,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet("/add")
-public class AddRecordServlet extends ViewPatientsServlet {
+public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        model.deleteAndWrite(filename, request.getParameter("delete"));
-
-        ArrayList<String> columnNames = processColumnNames(request, response);
-        if (columnNames == null) return;
-
-        ArrayList<ArrayList<String>> allRows = getAllRowsAfterSearchSort(request);
-
-        request.setAttribute("columnNames", columnNames);
-        request.setAttribute("allRows", allRows);
-        request.setAttribute("activeNavTab", "patientList");
-        request.setAttribute("filename", ViewPatientsServlet.filename);
-        request.setAttribute("search_field", request.getParameter("search") == null ? "" : request.getParameter("search"));
+    protected void processRequestAndResponse(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (updateRequestAttributes(request, response) == null) return;
+        request = updateRequestAttributes(request, response);
 
         ServletContext context = getServletContext();
-        RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
+        RequestDispatcher dispatch = context.getRequestDispatcher("/addPatient.jsp");
         dispatch.forward(request, response);
+    }
 
+    // to go to the add page
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        processRequestAndResponse(request, response);
+    }
+
+    // for when the "add patient" button clicked in the add page
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+//        model.deleteAndWrite(filename, request.getParameter("delete"));
     }
 
 }

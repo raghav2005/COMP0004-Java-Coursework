@@ -22,7 +22,6 @@ public class ViewPatientsServlet extends AbstractPatientsServlet {
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
         dispatch.forward(request, response);
-
     }
 
 }
