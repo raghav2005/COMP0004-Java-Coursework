@@ -9,10 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet("/add")
-public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
+@WebServlet("/edit")
+public class EditRecordServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     protected void processRequestAndResponse(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -20,33 +19,15 @@ public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
         request = updateRequestAttributes(request, response);
 
         ServletContext context = getServletContext();
-        RequestDispatcher dispatch = context.getRequestDispatcher("/addPatient.jsp");
+        RequestDispatcher dispatch = context.getRequestDispatcher("/editPatient.jsp");
         dispatch.forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute("ID_value", model.generateUniqueUUID());
-        request.setAttribute("routePath", "add");
+        request.setAttribute("routePath", "edit");
         processRequestAndResponse(request, response);
-    }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ArrayList<String> columnNames = processColumnNames(request, response);
-        if (columnNames == null) return;
-
-        if (updateRequestAttributes(request, response) == null) return;
-        request = updateRequestAttributes(request, response);
-
-        ArrayList<String> newRow = new ArrayList<>();
-        for (String columnName : columnNames) {
-            newRow.add(request.getParameter(columnName + "_field"));
-        }
-        model.addAndWrite(filename, newRow);
-
-        super.processRequestAndResponse(request, response);
-
     }
 
 }
