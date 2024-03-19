@@ -65,4 +65,18 @@ public class DataFrame {
         return row;
     }
 
+    public ArrayList<String> getRow(String idColumnName, String idValue) {
+        ArrayList<String> row = new ArrayList<>();
+
+        for (int i = 0; i < getRowCount(); i++) {
+            if (getValue(idColumnName, i).equals(idValue)) {
+                for (Column column : columns) {
+                    row.add(getValue(column.getName(), i));
+                }
+            }
+        }
+
+        return row;
+    }
+
 }

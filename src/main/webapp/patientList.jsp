@@ -23,7 +23,9 @@
 
           <form action="<%= request.getContextPath() %>/add" method="get" id="add_form">
             <th colspan="2">
-              <button type="submit" class="button" style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-plus"></i></button>
+              <button type="submit" class="button" style="height: 2em; width: 2em;">
+                <i class="fa fa-sharp fa-solid fa-plus"></i>
+              </button>
             </th>
           </form>
 
@@ -38,46 +40,42 @@
               <%
                 for (String field : row) {
               %>
-                <% if (field.length() > 0) { %>
+                <% if (!field.isEmpty()) { %>
                   <td><%= field %></td>
                 <% } else { %>
                   <td><b>-</b></td>
                 <% } %>
               <% } %>
 
-              <td><button class="button" style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-pencil"></i></button></td>
+              <form action="<%= request.getContextPath() %>/edit" method="get" id="edit_form_<%= row.getFirst() %>">
+                <td>
+                  <input id="editIDValue" name="editIDValue" type="text" value="<%= row.getFirst() %>" hidden="hidden">
+                  <button form="edit_form_<%= row.getFirst() %>" class="button" type="button" style="height: 2em; width: 2em;" onclick="editRecord('<%= row.getFirst() %>')">
+                    <i class="fa fa-sharp fa-solid fa-pencil"></i>
+                  </button>
+                </td>
+              </form>
 
               <td>
                 <button class="button" style="height: 2em; width: 2em;" onclick="deleteRecord('<%= row.getFirst() %>')"><i class="fa fa-sharp fa-solid fa-minus"></i></button>
               </td>
 
-              <script type="text/javascript">
-                function deleteRecord(delete_id) {
-                  document.getElementById("delete_field").value = delete_id;
-                  document.getElementById("delete_form").submit();
-                }
-              </script>
-
             </tr>
           <% } %>
         <% } %>
+
       </table>
+      <jsp:include page="sendIDData.jsp" />
     </div>
   </div>
 
   <div class="row">
-
-    <div class="col-md-4">
+    <div class="col-md-12">
       <form action="<%= request.getContextPath() %>/delete" method="post" id="delete_form">
         <input id="delete_field" type="text" name="delete" value="" hidden="hidden"/>
         <button type="submit" hidden="hidden"></button>
       </form>
     </div>
-
-    <div class="col-md-4"></div>
-
-    <div class="col-md-4"></div>
-
   </div>
 
 </div>
