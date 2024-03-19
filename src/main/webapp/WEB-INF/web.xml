@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-  <display-name>Hello World</display-name>
+  <display-name>Patient Data App</display-name>
   <description>
-    Hello World
+    Patient Data App
   </description>
 
 </web-app>

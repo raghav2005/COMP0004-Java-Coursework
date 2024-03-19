@@ -20,6 +20,9 @@
           %>
           <th><%= columnName %></th>
           <% } %>
+
+          <th colspan="2"><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-plus"></i></button></th>
+
         </tr>
         <%
           ArrayList<ArrayList<String>> allRows = (ArrayList<ArrayList<String>>) request.getAttribute("allRows");
@@ -27,11 +30,20 @@
             for (ArrayList<String> row : allRows) {
           %>
             <tr>
+
               <%
                 for (String field : row) {
               %>
-              <td><%= field %></td>
+                <% if (field.length() > 0) { %>
+                  <td><%= field %></td>
+                <% } else { %>
+                  <td><b>-</b></td>
+                <% } %>
               <% } %>
+
+              <td><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-pencil"></i></button></td>
+              <td><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-minus"></i></button></td>
+
             </tr>
           <% } %>
         <% } %>
