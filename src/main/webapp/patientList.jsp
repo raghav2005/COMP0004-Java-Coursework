@@ -42,13 +42,38 @@
               <% } %>
 
               <td><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-pencil"></i></button></td>
-              <td><button style="height: 2em; width: 2em;"><i class="fa fa-sharp fa-solid fa-minus"></i></button></td>
+
+              <td>
+                <button style="height: 2em; width: 2em;" onclick="deleteRecord()"><i class="fa fa-sharp fa-solid fa-minus"></i></button>
+              </td>
+
+              <script type="text/javascript">
+                function deleteRecord() {
+                  document.getElementById("delete_field").value = "<%= row.getFirst() %>";
+                  document.getElementById("delete_form").submit();
+                }
+              </script>
 
             </tr>
           <% } %>
         <% } %>
       </table>
     </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <form action="<%= request.getContextPath() %>/delete" method="post" id="delete_form">
+        <input id="delete_field" type="text" name="delete" value="" hidden="hidden"/>
+        <button type="submit" hidden="hidden"></button>
+      </form>
+    </div>
+
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4"></div>
+
   </div>
 
 </div>

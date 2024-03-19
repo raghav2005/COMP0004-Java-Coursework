@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/search")
-public class SearchServlet extends ViewPatientsServlet {
+@WebServlet("/delete")
+public class DeleteRecordServlet extends ViewPatientsServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
 
         ArrayList<String> columnNames = processColumnNames(request, response);
@@ -26,6 +26,8 @@ public class SearchServlet extends ViewPatientsServlet {
         String order = request.getParameter("order") == null ? "" : request.getParameter("order");
 
         ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !order.equals("ascending"));
+
+        System.err.println("delete: " + request.getParameter("delete"));
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);

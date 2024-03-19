@@ -73,7 +73,10 @@ public class ViewPatientsServlet extends HttpServlet {
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
-        ArrayList<ArrayList<String>> allRows = model.getAllRows();
+        String searchWord = request.getParameter("search") == null ? "" : request.getParameter("search");
+        String order = request.getParameter("order") == null ? "" : request.getParameter("order");
+
+        ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !order.equals("ascending"));
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);

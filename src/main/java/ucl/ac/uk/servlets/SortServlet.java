@@ -23,7 +23,9 @@ public class SortServlet extends ViewPatientsServlet {
         if (columnNames == null) return;
 
         String searchWord = request.getParameter("search") == null ? "" : request.getParameter("search");
-        ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !request.getParameter("order").equals("ascending"));
+        String order = request.getParameter("order") == null ? "" : request.getParameter("order");
+
+        ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !order.equals("ascending"));
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
