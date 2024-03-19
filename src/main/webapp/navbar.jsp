@@ -61,8 +61,13 @@
                             <button type="submit">
                                 <i class="fa fa-solid fa-sort"></i>
                             </button>
-                            <button type="button" onclick="document.getElementsByName('sort').value = ''; document.getElementById('sort_form').submit();">Reset</button>
-
+                            <button type="button" onclick="resetSort()">Reset</button>
+                            <script type="text/javascript">
+                                function resetSort() {
+                                    <% request.setAttribute("sort_field", ""); %>
+                                    document.getElementById("sort_form").submit();
+                                }
+                            </script>
                         </form>
                     </div>
 
