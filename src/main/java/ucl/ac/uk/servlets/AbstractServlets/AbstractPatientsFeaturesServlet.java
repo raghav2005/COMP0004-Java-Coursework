@@ -1,4 +1,4 @@
-package ucl.ac.uk.servlets;
+package ucl.ac.uk.servlets.AbstractServlets;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-abstract class AbstractPatientsFeaturesServlet extends AbstractPatientsServlet {
+public abstract class AbstractPatientsFeaturesServlet extends AbstractPatientsServlet {
 
     @Override
     protected HttpServletRequest updateRequestAttributes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

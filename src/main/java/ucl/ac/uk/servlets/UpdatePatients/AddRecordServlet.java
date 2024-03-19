@@ -1,4 +1,6 @@
-package ucl.ac.uk.servlets;
+package ucl.ac.uk.servlets.UpdatePatients;
+
+import ucl.ac.uk.servlets.AbstractServlets.AbstractPatientsFeaturesServlet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;

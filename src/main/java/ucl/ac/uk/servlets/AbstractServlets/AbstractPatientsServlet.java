@@ -1,4 +1,4 @@
-package ucl.ac.uk.servlets;
+package ucl.ac.uk.servlets.AbstractServlets;
 
 import ucl.ac.uk.model.Model;
 import ucl.ac.uk.model.ModelFactory;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-abstract class AbstractPatientsServlet extends HttpServlet {
+public abstract class AbstractPatientsServlet extends HttpServlet {
 
     protected static String filename;
     protected static Model model;

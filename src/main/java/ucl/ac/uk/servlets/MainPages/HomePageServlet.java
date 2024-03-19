@@ -1,4 +1,4 @@
-package ucl.ac.uk.servlets;
+package ucl.ac.uk.servlets.MainPages;
 
 import ucl.ac.uk.model.Model;
 import ucl.ac.uk.model.ModelFactory;

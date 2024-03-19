@@ -1,4 +1,4 @@
-package ucl.ac.uk.servlets;
+package ucl.ac.uk.servlets.MainPages;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
