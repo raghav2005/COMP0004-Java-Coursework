@@ -39,4 +39,24 @@ public class EditRecordServlet extends AbstractPatientsFeaturesServlet {
         processRequestAndResponse(request, response);
     }
 
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ArrayList<String> columnNames = processColumnNames(request, response);
+        if (columnNames == null) return;
+
+        if (updateRequestAttributes(request, response) == null) return;
+        request = updateRequestAttributes(request, response);
+
+        ArrayList<String> newRow = new ArrayList<>();
+        for (String columnName : columnNames) {
+            newRow.add(request.getParameter(columnName + "_field"));
+        }
+//        model.addAndWrite(filename, newRow);
+
+        System.err.println("newRow: " + newRow);
+
+        super.processRequestAndResponse(request, response);
+
+    }
+
 }

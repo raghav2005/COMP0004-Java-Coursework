@@ -14,8 +14,4 @@
         document.getElementById("search_form").submit();
     }
 
-    function clearInputs() {
-        Array.from(document.getElementsByClassName("columnInputs")).forEach(element => element.value = "");
-    }
-
 </script>

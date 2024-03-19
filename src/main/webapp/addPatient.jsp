@@ -3,6 +3,8 @@
 
 <%
     String routePath = request.getAttribute("routePath") == null ? "/error.html" : (String) request.getAttribute("routePath");
+    ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
+    String value;
 %>
 
 <html>
@@ -26,13 +28,11 @@
                         <label for="ID_field">ID:</label>
                     </div>
                     <div class="col-md-11">
-                        <input class="columnInputs" type="text" name="ID_field" id="ID_field" value="<%= request.getAttribute("ID_value") %>" style="width: 100%" readonly />
+                        <input type="text" name="ID_field" id="ID_field" value="<%= request.getAttribute("ID_value") %>" style="width: 100%" readonly />
                     </div>
                 </div>
 
                 <%
-                    String value;
-                    ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
                     for (int i = 1; i < columnNames.size(); i++) {
                         value = columnNames.get(i).toUpperCase();
                 %>
@@ -57,7 +57,13 @@
                     </div>
                     <div class="col-md-9"></div>
                     <div class="col-md-1">
-                        <button class="button" form="<%= routePath %>_form" type="reset" style="width: 100%; height: 200%;" onclick="clearInputs()">Clear</button>
+                        <button class="button" form="<%= routePath %>_form" type="reset" style="width: 100%; height: 200%;" onclick="clearInputs()">
+                            <% if (routePath.equals("add")) { %>
+                            Clear
+                            <% } else { %>
+                            Revert
+                            <% } %>
+                        </button>
                     </div>
                     <div class="col-md-1">
                         <button class="button" form="<%= routePath %>_form" type="submit" style="width: 100%; height: 200%;">Submit</button>
@@ -66,7 +72,7 @@
 
             </form>
 
-            <jsp:include page="resetFeatures.jsp" />
+            <jsp:include page="clearFields.jsp" />
         </div>
     </div>
 
