@@ -28,6 +28,7 @@ public class SearchServlet extends ViewPatientsServlet {
         request.setAttribute("allRows", allRows);
         request.setAttribute("activeNavTab", "patientList");
         request.setAttribute("filename", ViewPatientsServlet.filename);
+        request.setAttribute("search_field", request.getParameter("search") == null ? "" : request.getParameter("search"));
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");

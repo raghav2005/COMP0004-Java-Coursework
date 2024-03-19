@@ -79,6 +79,7 @@ public class ViewPatientsServlet extends HttpServlet {
         request.setAttribute("allRows", allRows);
         request.setAttribute("activeNavTab", "patientList");
         request.setAttribute("filename", filename);
+        request.setAttribute("search_field", "");
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");

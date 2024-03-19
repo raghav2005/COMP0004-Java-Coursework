@@ -62,6 +62,7 @@ public class Model {
 
     public ArrayList<ArrayList<String>> search(String searchWord) {
         ArrayList<ArrayList<String>> allRows = new ArrayList<>();
+        searchWord = searchWord == null ? "" : searchWord;
 
         for (int i = 0; i < dataFrame.getRowCount(); i++) {
             ArrayList<String> row = null;

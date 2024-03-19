@@ -56,6 +56,8 @@
                                 <option value="descending">descending</option>
                             </select>
 
+                            <input type="text" name="search" value="<%= (String) request.getAttribute("search_field") %>" hidden="hidden"/>
+
                             <button type="submit">
                                 <i class="fa fa-solid fa-sort"></i>
                             </button>
@@ -67,11 +69,19 @@
                     <div class="search">
                         <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
                             <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
-                            <input type="text" placeholder="Search..." name="search" />
+                            <input type="text" placeholder="Search..." name="search" value="<%= (String) request.getAttribute("search_field") %>"/>
                             <button type="submit">
                                 <i class="fa fa-search" style="font-size: 1.35em;"></i>
                             </button>
-                            <button type="button" onclick="document.getElementsByName('search').value = ''; document.getElementById('search_form').submit();">Reset</button>
+                            <button type="button" onclick="resetSearch()">Reset</button>
+                            <script type="text/javascript">
+                                function resetSearch() {
+                                    <% request.setAttribute("search_field", ""); %>
+                                    document.getElementsByName("search")[0].value = "";
+                                    document.getElementsByName("search")[1].value = "";
+                                    document.getElementById("search_form").submit();
+                                }
+                            </script>
                         </form>
                     </div>
                 <% } %>

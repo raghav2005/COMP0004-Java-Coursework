@@ -29,6 +29,7 @@ public class SortServlet extends ViewPatientsServlet {
         request.setAttribute("allRows", allRows);
         request.setAttribute("activeNavTab", "patientList");
         request.setAttribute("filename", ViewPatientsServlet.filename);
+        request.setAttribute("search_field", searchWord);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
