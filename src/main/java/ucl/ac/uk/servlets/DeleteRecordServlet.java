@@ -16,7 +16,6 @@ public class DeleteRecordServlet extends ViewPatientsServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.err.println("delete: " + request.getParameter("delete"));
         model.deleteAndWrite(filename, request.getParameter("delete"));
 
         ArrayList<String> columnNames = processColumnNames(request, response);

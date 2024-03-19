@@ -129,7 +129,8 @@ public class Model {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         String formattedDateTime = currentDateTime.format(formatter);
 
-        String newFilename = originalFilename.substring(0, originalFilename.lastIndexOf(".")) + "_" + formattedDateTime + ".csv";
+        String fileNameNoExtension = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+        String newFilename = fileNameNoExtension.substring(0, !fileNameNoExtension.contains("_") ? fileNameNoExtension.length() : fileNameNoExtension.indexOf("_")) + "_" + formattedDateTime + ".csv";
 
         try {
             writeData(newFilename, allRows);
