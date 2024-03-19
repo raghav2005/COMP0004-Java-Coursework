@@ -122,7 +122,7 @@ public class Model {
 
     }
 
-    public String deleteAndWrite(String originalFilename, String id) throws IOException {
+    public void deleteAndWrite(String originalFilename, String id) throws IOException {
         ArrayList<ArrayList<String>> allRows = getAllRows().stream().filter(row -> !row.getFirst().equals(id)).collect(Collectors.toCollection(ArrayList::new));
 
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -137,8 +137,6 @@ public class Model {
             throw new IOException(exception.getMessage());
         }
         readData(newFilename);
-
-        return newFilename;
 
     }
 
