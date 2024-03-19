@@ -63,20 +63,26 @@ public class ViewPatientsServlet extends HttpServlet {
 
     }
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        filename = processFilename(request, response);
-        if (filename == null) return;
-
+    protected ArrayList<ArrayList<String>> getAllRows(HttpServletRequest request, HttpServletResponse response) {
         Model model = ModelFactory.getModel();
-
-        ArrayList<String> columnNames = processColumnNames(request, response);
-        if (columnNames == null) return;
 
         String searchWord = request.getParameter("search") == null ? "" : request.getParameter("search");
         String order = request.getParameter("order") == null ? "" : request.getParameter("order");
 
         ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !order.equals("ascending"));
+
+        return allRows;
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        filename = processFilename(request, response);
+        if (filename == null) return;
+
+        ArrayList<String> columnNames = processColumnNames(request, response);
+        if (columnNames == null) return;
+
+        ArrayList<ArrayList<String>> allRows = getAllRows(request, response);
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);

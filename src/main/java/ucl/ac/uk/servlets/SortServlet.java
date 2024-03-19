@@ -22,16 +22,13 @@ public class SortServlet extends ViewPatientsServlet {
         ArrayList<String> columnNames = processColumnNames(request, response);
         if (columnNames == null) return;
 
-        String searchWord = request.getParameter("search") == null ? "" : request.getParameter("search");
-        String order = request.getParameter("order") == null ? "" : request.getParameter("order");
-
-        ArrayList<ArrayList<String>> allRows = model.sort(request.getParameter("sort"), model.search(searchWord), !order.equals("ascending"));
+        ArrayList<ArrayList<String>> allRows = getAllRows(request, response);
 
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
         request.setAttribute("activeNavTab", "patientList");
         request.setAttribute("filename", ViewPatientsServlet.filename);
-        request.setAttribute("search_field", searchWord);
+        request.setAttribute("search_field", request.getParameter("search") == null ? "" : request.getParameter("search"));
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
