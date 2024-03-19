@@ -18,24 +18,26 @@
 
                 <div class="row" style="margin-bottom: 0.5em;">
                     <div class="col-md-1" style="text-align: left">
-                        <label for="id_field">ID:</label>
+                        <label for="ID_field">ID:</label>
                     </div>
                     <div class="col-md-11">
-                        <input class="columnInputs" type="text" name="id_field" id="id_field" value="<%= request.getAttribute("id") %>" style="width: 100%" disabled />
+                        <input class="columnInputs" type="text" name="ID_field" id="ID_field" value="<%= request.getAttribute("ID") %>" style="width: 100%" readonly />
                     </div>
                 </div>
 
                 <%
+                    String value;
                     ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
                     for (int i = 1; i < columnNames.size(); i++) {
+                        value = columnNames.get(i).toUpperCase();
                 %>
 
                     <div class="row" style="margin-bottom: 0.5em;">
                         <div class="col-md-1" style="text-align: left">
-                            <label for="<%= columnNames.get(i) %>_field"><%= columnNames.get(i).toUpperCase() %>:</label>
+                            <label for="<%= value %>_field"><%= value %>:</label>
                         </div>
                         <div class="col-md-11">
-                            <input class="columnInputs" type="text" name="<%= columnNames.get(i) %>_field" id="<%= columnNames.get(i) %>_field" placeholder="<%= columnNames.get(i) %>" value="" style="width: 100%" />
+                            <input class="columnInputs" type="text" name="<%= value %>_field" id="<%= value %>_field" placeholder="<%= value %>" value="" style="width: 100%" />
                         </div>
                     </div>
 
@@ -45,7 +47,7 @@
                     <div class="col-md-1">
                         <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
                             <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
-                            <button class="button" form="search_form" type="submit" style="width: 100%; height: 200%;" onclick="goToPatientList()">Go Back</button>
+                            <button class="button" form="search_form" type="submit" style="width: 100%; height: 200%;">Go Back</button>
                         </form>
                     </div>
                     <div class="col-md-9"></div>
@@ -59,22 +61,7 @@
 
             </form>
 
-            <script>
-                function clearInputs() {
-                    Array.from(document.getElementsByClassName("columnInputs")).forEach(element => element.value = "");
-                }
-                function goToPatientList() {
-                    ;
-                }
-            </script>
-
-<%--            <p>--%>
-<%--                columnNames: <%= request.getAttribute("columnNames") == null ? "" : request.getAttribute("columnNames") %> <br />--%>
-<%--                allRows: <%= request.getAttribute("allRows") == null ? "" : request.getAttribute("allRows") %> <br />--%>
-<%--                activeNavTab: <%= request.getAttribute("activeNavTab") == null ? "" : request.getAttribute("activeNavTab") %> <br />--%>
-<%--                filename: <%= request.getAttribute("filename") == null ? "" : request.getAttribute("filename") %> <br />--%>
-<%--                search_field: <%= request.getAttribute("search_field") == null ? "" : request.getAttribute("search_field") %> <br />--%>
-<%--            </p>--%>
+            <jsp:include page="resetFeatures.jsp" />
         </div>
     </div>
 

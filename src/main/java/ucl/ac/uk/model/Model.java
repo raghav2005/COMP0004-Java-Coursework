@@ -123,21 +123,25 @@ public class Model {
 
     }
 
-    public void deleteAndWrite(String originalFilename, String id) throws IOException {
-        ArrayList<ArrayList<String>> allRows = getAllRows().stream().filter(row -> !row.getFirst().equals(id)).collect(Collectors.toCollection(ArrayList::new));
-
+    private String getNewFilename(String originalFilename) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         String formattedDateTime = currentDateTime.format(formatter);
-
         String fileNameNoExtension = originalFilename.substring(0, originalFilename.lastIndexOf("."));
-        String newFilename = fileNameNoExtension.substring(0, !fileNameNoExtension.contains("_") ? fileNameNoExtension.length() : fileNameNoExtension.indexOf("_")) + "_" + formattedDateTime + ".csv";
+
+        return fileNameNoExtension.substring(0, !fileNameNoExtension.contains("_") ? fileNameNoExtension.length() : fileNameNoExtension.indexOf("_")) + "_" + formattedDateTime + ".csv";
+    }
+
+    public void deleteAndWrite(String originalFilename, String id) throws IOException {
+        ArrayList<ArrayList<String>> allRows = getAllRows().stream().filter(row -> !row.getFirst().equals(id)).collect(Collectors.toCollection(ArrayList::new));
+        String newFilename = getNewFilename(originalFilename);
 
         try {
             writeData(newFilename, allRows);
         } catch (IOException exception) {
             throw new IOException(exception.getMessage());
         }
+
         readData(newFilename);
 
     }
@@ -154,6 +158,22 @@ public class Model {
         } while (exists);
 
         return randomUUID;
+    }
+
+    public void addAndWrite(String originalFilename, ArrayList<String> rowValues) throws IOException {
+        ArrayList<ArrayList<String>> allRows = getAllRows();
+        allRows.add(rowValues);
+
+        String newFilename = getNewFilename(originalFilename);
+
+        try {
+            writeData(newFilename, allRows);
+        } catch (IOException exception) {
+            throw new IOException(exception.getMessage());
+        }
+
+        readData(newFilename);
+
     }
 
 }

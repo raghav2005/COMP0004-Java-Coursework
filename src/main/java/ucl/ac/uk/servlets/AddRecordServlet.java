@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/add")
 public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
@@ -24,15 +25,27 @@ public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
     // to go to the add page
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("id", model.generateUniqueUUID());
+        request.setAttribute("ID", model.generateUniqueUUID());
         processRequestAndResponse(request, response);
     }
 
     // for when the "add patient" button clicked in the add page
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        model.deleteAndWrite(filename, request.getParameter("delete"));
-        System.err.println("NOT HERE!");
+        ArrayList<String> columnNames = processColumnNames(request, response);
+        if (columnNames == null) return;
+
+        if (updateRequestAttributes(request, response) == null) return;
+        request = updateRequestAttributes(request, response);
+
+        ArrayList<String> newRow = new ArrayList<>();
+        for (String columnName : columnNames) {
+            newRow.add(request.getParameter(columnName + "_field"));
+        }
+        model.addAndWrite(filename, newRow);
+
+        super.processRequestAndResponse(request, response);
+
     }
 
 }
