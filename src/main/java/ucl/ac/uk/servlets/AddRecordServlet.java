@@ -24,6 +24,7 @@ public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
     // to go to the add page
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setAttribute("id", model.generateUniqueUUID());
         processRequestAndResponse(request, response);
     }
 
@@ -31,6 +32,7 @@ public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 //        model.deleteAndWrite(filename, request.getParameter("delete"));
+        System.err.println("NOT HERE!");
     }
 
 }

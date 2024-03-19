@@ -16,7 +16,14 @@
 
                 <input type="text" name="search_field" value="<%= request.getAttribute("search_field") == null ? "" : request.getAttribute("search_field") %>" hidden="hidden" />
 
-                <!-- AUTO-GEN ID FIELD disabled -->
+                <div class="row" style="margin-bottom: 0.5em;">
+                    <div class="col-md-1" style="text-align: left">
+                        <label for="id_field">ID:</label>
+                    </div>
+                    <div class="col-md-11">
+                        <input class="columnInputs" type="text" name="id_field" id="id_field" value="<%= request.getAttribute("id") %>" style="width: 100%" disabled />
+                    </div>
+                </div>
 
                 <%
                     ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
@@ -35,22 +42,29 @@
                 <% } %>
 
                 <div class="row" style="margin-top: 0.5em;">
-                    <div class="col-md-10"></div>
                     <div class="col-md-1">
-                        <button class="button" type="reset" style="width: 100%; height: 200%;" onclick="clearInputs()">Clear</button>
+                        <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
+                            <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
+                            <button class="button" form="search_form" type="submit" style="width: 100%; height: 200%;" onclick="goToPatientList()">Go Back</button>
+                        </form>
+                    </div>
+                    <div class="col-md-9"></div>
+                    <div class="col-md-1">
+                        <button class="button" form="add_form" type="reset" style="width: 100%; height: 200%;" onclick="clearInputs()">Clear</button>
                     </div>
                     <div class="col-md-1">
-                        <button class="button" type="submit" style="width: 100%; height: 200%;">Submit</button>
+                        <button class="button" form="add_form" type="submit" style="width: 100%; height: 200%;">Submit</button>
                     </div>
                 </div>
-
-                <!-- GO BACK BUTTON -->
 
             </form>
 
             <script>
                 function clearInputs() {
                     Array.from(document.getElementsByClassName("columnInputs")).forEach(element => element.value = "");
+                }
+                function goToPatientList() {
+                    ;
                 }
             </script>
 

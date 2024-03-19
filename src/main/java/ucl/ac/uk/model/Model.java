@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -139,6 +140,20 @@ public class Model {
         }
         readData(newFilename);
 
+    }
+
+    public String generateUniqueUUID() {
+        ArrayList<ArrayList<String>> allRows = getAllRows();
+        String randomUUID;
+        boolean exists;
+
+        do {
+            randomUUID = UUID.randomUUID().toString();
+            String copyRandomUUID = randomUUID;
+            exists = allRows.stream().anyMatch(row -> row.get(0).equals(copyRandomUUID));
+        } while (exists);
+
+        return randomUUID;
     }
 
 }

@@ -68,7 +68,7 @@ tr:hover {
 }
 
 button, .button, .button button {
-    background-color: transparent;
+    background-color: lightgray;
 }
 
 button:hover, .button:hover {
