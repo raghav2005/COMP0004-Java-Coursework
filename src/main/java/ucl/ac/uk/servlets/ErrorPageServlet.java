@@ -12,6 +12,7 @@ import java.io.IOException;
 @WebServlet("/error.html")
 public class ErrorPageServlet extends HttpServlet {
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute("activeNavTab", "error");
 

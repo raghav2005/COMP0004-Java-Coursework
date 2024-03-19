@@ -63,7 +63,7 @@ public class Model {
             ArrayList<String> row = null;
 
             for (String columnName : dataFrame.getColumnNames()) {
-                if (dataFrame.getValue(columnName, i).contains(searchWord)) {
+                if (dataFrame.getValue(columnName, i).toLowerCase().contains(searchWord.toLowerCase())) {
                     row = dataFrame.getRow(i);
                 }
             }
@@ -74,5 +74,7 @@ public class Model {
         return allRows;
 
     }
+
+    // POTENTIAL ADDITIONAL FEATURE: button for specific search / fuzzy search
 
 }

@@ -9,7 +9,6 @@
 <body>
 <div class="container-fluid">
   <jsp:include page="/navbar.jsp" />
-  <!-- NAVBAR - CHANGE FILENAME, ETC. -->
 
   <div class="row">
     <div class="col-md-12">
@@ -24,15 +23,17 @@
         </tr>
         <%
           ArrayList<ArrayList<String>> allRows = (ArrayList<ArrayList<String>>) request.getAttribute("allRows");
-          for (ArrayList<String> row : allRows) {
-        %>
-        <tr>
-          <%
-            for (String field : row) {
+          if (!(allRows == null || allRows.isEmpty())) {
+            for (ArrayList<String> row : allRows) {
           %>
-          <td><%= field %></td>
+            <tr>
+              <%
+                for (String field : row) {
+              %>
+              <td><%= field %></td>
+              <% } %>
+            </tr>
           <% } %>
-        </tr>
         <% } %>
       </table>
     </div>

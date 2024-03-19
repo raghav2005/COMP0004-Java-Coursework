@@ -9,13 +9,13 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.View;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/patientList.html/search")
+@WebServlet("/search")
 public class SearchServlet extends ViewPatientsServlet {
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
 
@@ -32,6 +32,7 @@ public class SearchServlet extends ViewPatientsServlet {
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
         dispatch.forward(request, response);
+
     }
 
 }

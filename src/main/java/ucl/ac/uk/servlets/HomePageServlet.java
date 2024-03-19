@@ -16,6 +16,7 @@ import java.util.ArrayList;
 @WebServlet({"", "/index.html"})
 public class HomePageServlet extends HttpServlet {
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         ArrayList<String> files = new ArrayList<>();

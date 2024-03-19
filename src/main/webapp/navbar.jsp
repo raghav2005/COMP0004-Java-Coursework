@@ -39,7 +39,8 @@
 
                 <% if (displayPatientStuff) { %>
                 <div class="search">
-                    <form action="<%= request.getContextPath() %>/patientList.html/search" method="get">
+                    <form action="<%= request.getContextPath() %>/search" method="get">
+                        <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
                         <input type="text" placeholder="Search..." name="search" />
                         <button type="submit">
                             <i class="fa fa-search" style="font-size: 1.35em;"></i>

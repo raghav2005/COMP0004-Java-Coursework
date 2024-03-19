@@ -63,6 +63,7 @@ public class ViewPatientsServlet extends HttpServlet {
 
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         filename = processFilename(request, response);
         if (filename == null) return;
