@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/search")
+@WebServlet({"/search", "/search/clear"})
 public class SearchServlet extends ViewPatientsServlet {
 
     @Override
