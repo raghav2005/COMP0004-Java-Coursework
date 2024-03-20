@@ -18,7 +18,10 @@ public class ViewGraphServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     protected void processRequestAndResponse(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (updateRequestAttributes(request, response) == null) return;
+        if (updateRequestAttributes(request, response) == null) {
+            redirectToError(request, response);
+            return;
+        }
         request = updateRequestAttributes(request, response);
 
         ServletContext context = getServletContext();

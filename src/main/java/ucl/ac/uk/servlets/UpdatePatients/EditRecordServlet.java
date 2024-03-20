@@ -16,7 +16,10 @@ public class EditRecordServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     protected void processRequestAndResponse(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (updateRequestAttributes(request, response) == null) return;
+        if (updateRequestAttributes(request, response) == null) {
+            redirectToError(request, response);
+            return;
+        }
         request = updateRequestAttributes(request, response);
 
         ServletContext context = getServletContext();
@@ -27,7 +30,10 @@ public class EditRecordServlet extends AbstractPatientsFeaturesServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ArrayList<String> columnNames = processColumnNames(request, response);
-        if (columnNames == null) return;
+        if (columnNames == null) {
+            redirectToError(request, response);
+            return;
+        }
 
         ArrayList<String> editingRow = model.getDataFrame().getRow(columnNames.getFirst(), request.getParameter("editIDValue"));
 
@@ -42,9 +48,15 @@ public class EditRecordServlet extends AbstractPatientsFeaturesServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ArrayList<String> columnNames = processColumnNames(request, response);
-        if (columnNames == null) return;
+        if (columnNames == null) {
+            redirectToError(request, response);
+            return;
+        }
 
-        if (updateRequestAttributes(request, response) == null) return;
+        if (updateRequestAttributes(request, response) == null) {
+            redirectToError(request, response);
+            return;
+        }
         request = updateRequestAttributes(request, response);
 
         ArrayList<String> newRow = new ArrayList<>();

@@ -16,9 +16,15 @@ public class ViewPatientsServlet extends AbstractPatientsServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         AbstractPatientsServlet.filename = processFilename(request, response);
-        if (AbstractPatientsServlet.filename == null) return;
+        if (AbstractPatientsServlet.filename == null) {
+            redirectToError(request, response);
+            return;
+        }
 
-        if (updateRequestAttributes(request, response) == null) return;
+        if (updateRequestAttributes(request, response) == null) {
+            redirectToError(request, response);
+            return;
+        }
         request = updateRequestAttributes(request, response);
 
         ServletContext context = getServletContext();

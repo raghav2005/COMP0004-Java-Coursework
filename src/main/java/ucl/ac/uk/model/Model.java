@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Model {
@@ -172,7 +171,7 @@ public class Model {
 
     }
 
-    private String getNewFilename(String originalFilename) {
+    public String getNewFilename(String originalFilename) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         String formattedDateTime = currentDateTime.format(formatter);
@@ -191,7 +190,11 @@ public class Model {
             throw new IOException(exception.getMessage());
         }
 
-        readData(newFilename);
+        try {
+            readData(newFilename);
+        } catch (IOException exception) {
+            throw new IOException(exception);
+        }
 
     }
 
@@ -221,7 +224,11 @@ public class Model {
             throw new IOException(exception.getMessage());
         }
 
-        readData(newFilename);
+        try {
+            readData(newFilename);
+        } catch (IOException exception) {
+            throw new IOException(exception);
+        }
 
     }
 
@@ -240,7 +247,11 @@ public class Model {
             throw new IOException(exception.getMessage());
         }
 
-        readData(newFilename);
+        try {
+            readData(newFilename);
+        } catch (IOException exception) {
+            throw new IOException(exception);
+        }
 
     }
 

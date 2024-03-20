@@ -17,6 +17,12 @@ public abstract class AbstractPatientsServlet extends HttpServlet {
     protected static String filename;
     protected static Model model;
 
+    protected void redirectToError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ServletContext context = getServletContext();
+        RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+        dispatch.forward(request, response);
+    }
+
     protected String processFilename(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String filename = "data/" + request.getParameter("filename");
 

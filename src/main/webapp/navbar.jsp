@@ -40,6 +40,15 @@
                 </div>
 
                 <% if (displayPatientStuff) { %>
+
+                    <div class="JSONDownload" style="margin-right: 3em;">
+                        <form action="<%= request.getContextPath() %>/JSONDownload" method="post" id="JSONDownload_form">
+                            <button type="submit" class="button">
+                                Download JSON <i class="fa fa-sharp fa-solid fa-file"></i>
+                            </button>
+                        </form>
+                    </div>
+
                     <div class="graph" style="margin-right: 3em;">
                         <form action="<%= request.getContextPath() %>/graph" method="get" id="graph_form">
 
