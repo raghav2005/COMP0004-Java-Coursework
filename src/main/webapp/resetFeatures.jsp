@@ -9,8 +9,7 @@
 
     function resetSearch() {
         <% request.setAttribute("search_field", ""); %>
-        document.getElementsByName("search")[0].value = "";
-        document.getElementsByName("search")[1].value = "";
+        Array.from(document.getElementsByName("search")).forEach(element => element.value = "");
         document.getElementById("search_form").submit();
     }
 

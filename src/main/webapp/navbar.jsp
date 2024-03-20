@@ -6,6 +6,7 @@
             !((String) request.getAttribute("activeNavTab") == "error")) ||
             ((String) request.getAttribute("activeNavTab") == "home" &&
                     !((String) request.getAttribute("filename") == null)));
+    ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
 %>
 
 <div class="row">
@@ -39,16 +40,36 @@
                 </div>
 
                 <% if (displayPatientStuff) { %>
+                    <div class="graph" style="margin-right: 3em;">
+                        <form action="<%= request.getContextPath() %>/graph" method="get" id="graph_form">
+
+                            <select name="graph" id="graph" required>
+                                <%
+                                    for (String columnName : columnNames) {
+                                %>
+                                <option value="<%= columnName %>"><%= columnName %></option>
+                                <% } %>
+                                <option value="AGE">AGE</option>
+                            </select>
+
+                            <input type="text" name="search" value="<%= (String) request.getAttribute("search_field") %>" hidden="hidden"/>
+
+                            <button type="submit" class="button">
+                                <i class="fa fa-sharp fa-solid fa-bar-chart"></i>
+                            </button>
+                        </form>
+                    </div>
+
                     <div class="sort" style="margin-right: 3em;">
                         <form action="<%= request.getContextPath() %>/sort" method="get" id="sort_form">
 
                             <select name="sort" id="sort" required>
                                 <%
-                                    ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
                                     for (String columnName : columnNames) {
                                 %>
                                 <option value="<%= columnName %>"><%= columnName %></option>
                                 <% } %>
+                                <option value="AGE">AGE</option>
                             </select>
 
                             <select name="order" id="order" required>
@@ -59,7 +80,7 @@
                             <input type="text" name="search" value="<%= (String) request.getAttribute("search_field") %>" hidden="hidden"/>
 
                             <button type="submit" class="button">
-                                <i class="fa fa-solid fa-sort"></i>
+                                <i class="fa fa-sharp fa-solid fa-sort"></i>
                             </button>
                             <button type="button" onclick="resetSort()" class="button">Reset</button>
                         </form>
@@ -70,7 +91,7 @@
                             <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
                             <input type="text" placeholder="Search..." name="search" value="<%= (String) request.getAttribute("search_field") %>"/>
                             <button type="submit" class="button">
-                                <i class="fa fa-search" style="font-size: 1.35em;"></i>
+                                <i class="fa fa-sharp fa-solid fa-search" style="font-size: 1.35em;"></i>
                             </button>
                             <button type="button" onclick="resetSearch()" class="button">Reset</button>
                         </form>

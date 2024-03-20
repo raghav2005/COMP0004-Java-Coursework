@@ -4,10 +4,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -85,13 +88,59 @@ public class Model {
 
     }
 
-    // POTENTIAL ADDITIONAL FEATURE: button for specific search / fuzzy search
+    private int getAge(String birthDateStr, String deathDateStr) {
+        if (birthDateStr == null || birthDateStr.isEmpty()) return -1;
+
+        LocalDate birthDate = LocalDate.parse(birthDateStr);
+        LocalDate currentDate = LocalDate.now();
+        LocalDate deathDate = null;
+
+        if (deathDateStr != null && !deathDateStr.isEmpty()) {
+            deathDate = LocalDate.parse(deathDateStr);
+        }
+
+        if (deathDate != null && deathDate.isBefore(birthDate)) return -1;
+
+        Period period;
+        if (deathDate != null) period = Period.between(birthDate, deathDate);
+        else period = Period.between(birthDate, currentDate);
+
+        return period.getYears();
+
+    }
 
     public ArrayList<ArrayList<String>> sort(String columnName, ArrayList<ArrayList<String>> allRows, boolean reversed) {
         if (columnName == null || columnName.isEmpty()) return allRows;
 
         ArrayList<String> columnNames = dataFrame.getColumnNames();
-        int columnIndex = IntStream.range(0, columnNames.size()).filter(i -> columnNames.get(i).equals(columnName)).findFirst().orElse(0);
+
+        try {
+            if (columnName.equals("AGE") && !columnNames.contains("AGE")) {
+
+                int columnIndexBirth = columnNames.indexOf("BIRTHDATE");
+                int columnIndexDeath = columnNames.indexOf("DEATHDATE");
+
+                if (columnIndexBirth == -1 || columnIndexDeath == -1) throw new NullPointerException();
+
+                Comparator<ArrayList<String>> ageComparer = (row1, row2) -> {
+                    String birthDateStr1 = row1.get(columnIndexBirth);
+                    String deathDateStr1 = row1.get(columnIndexDeath);
+                    String birthDateStr2 = row2.get(columnIndexBirth);
+                    String deathDateStr2 = row2.get(columnIndexDeath);
+
+                    return Integer.compare(getAge(birthDateStr1, deathDateStr1), getAge(birthDateStr2, deathDateStr2));
+                };
+                Stream<ArrayList<String>> necessaryData = allRows.stream().sorted(ageComparer);
+
+                return !reversed ? necessaryData.collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(necessaryData.collect(Collectors.toList()).reversed());
+
+            }
+        } catch (NullPointerException exception) {
+            return allRows;
+        }
+
+        int columnIndex = columnNames.indexOf(columnName);
+//        IntStream.range(0, columnNames.size()).filter(i -> columnNames.get(i).equals(columnName)).findFirst().orElse(0);
         Stream<ArrayList<String>> necessaryData = allRows.stream().sorted(Comparator.comparing(row -> row.get(columnIndex)));
 
         return !reversed ? necessaryData.collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(necessaryData.collect(Collectors.toList()).reversed());
@@ -192,6 +241,31 @@ public class Model {
         }
 
         readData(newFilename);
+
+    }
+
+    public HashMap<String, Integer> getBarChart(String columnName, String searchWord) {
+        ArrayList<ArrayList<String>> allRows = search(searchWord);
+        ArrayList<String> allColumns = dataFrame.getColumnNames();
+        HashMap<String, Integer> frequencies = new HashMap<>();
+        int columnIndex = 0;
+
+        for (int i = 0; i < allColumns.size(); i++) {
+            if (allColumns.get(i).equals(columnName)) {
+                columnIndex = i;
+                break;
+            }
+        }
+
+        for (ArrayList<String> row : allRows) {
+            if (frequencies.containsKey(row.get(columnIndex).toString())) {
+                frequencies.put(row.get(columnIndex).toString(), frequencies.get(row.get(columnIndex).toString()) + 1);
+            } else {
+                frequencies.put(row.get(columnIndex).toString(), 1);
+            }
+        }
+
+        return frequencies;
 
     }
 
