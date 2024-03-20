@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 @WebServlet("/graph")
 public class ViewGraphServlet extends AbstractPatientsFeaturesServlet {
@@ -30,12 +32,8 @@ public class ViewGraphServlet extends AbstractPatientsFeaturesServlet {
         request.setAttribute("columnToDisplay", columnName);
 
         HashMap<String, Integer> frequencies = model.getBarChart(columnName, request.getParameter("search"));
-
-        System.err.println("frequencies: " + frequencies);
-
-        for (HashMap.Entry<String, Integer> freqVal : frequencies.entrySet()) {
-            System.err.println("val: " + freqVal.toString());
-        }
+        request.setAttribute("labels", frequencies.keySet().stream().map(String::valueOf).collect(Collectors.toCollection(ArrayList::new)));
+        request.setAttribute("data", frequencies.values());
 
         processRequestAndResponse(request, response);
     }

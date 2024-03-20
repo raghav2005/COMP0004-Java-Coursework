@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -10,40 +11,26 @@
 <div class="container-fluid">
   <jsp:include page="/navbar.jsp" />
 
-  <div class="row">
+    <div class="row">
+      <div class="col-md-1">
+        <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
+          <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
+          <input type="text" name="search_field" value="<%= request.getAttribute("search_field") == null ? "" : request.getAttribute("search_field") %>" hidden="hidden" />
+          <button class="button" form="search_form" type="submit" style="width: 100%; margin-top: 0.25em;">Go Back</button>
+        </form>
+      </div>
+
+      <div class="col-md-11"></div>
+    </div>
+
+  <div class="row" style="padding-top: -2.5em;">
     <div class="col-md-12">
       <canvas id="graphToShow"></canvas>
     </div>
   </div>
 
-  <script type="text/javascript">
+  <jsp:include page="graphChart.jsp" />
 
-    <%
-      String column = (String) request.getAttribute("columnToDisplay");
-    %>
-
-    const ctx = document.getElementById('graphToShow');
-
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-  </script>
 
 </div>
 <jsp:include page="/foot.jsp" />

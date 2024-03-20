@@ -248,21 +248,40 @@ public class Model {
         ArrayList<ArrayList<String>> allRows = search(searchWord);
         ArrayList<String> allColumns = dataFrame.getColumnNames();
         HashMap<String, Integer> frequencies = new HashMap<>();
-        int columnIndex = 0;
 
-        for (int i = 0; i < allColumns.size(); i++) {
-            if (allColumns.get(i).equals(columnName)) {
-                columnIndex = i;
-                break;
-            }
-        }
+        if (columnName.equals("AGE") && !dataFrame.getColumnNames().contains("AGE")) {
 
-        for (ArrayList<String> row : allRows) {
-            if (frequencies.containsKey(row.get(columnIndex).toString())) {
-                frequencies.put(row.get(columnIndex).toString(), frequencies.get(row.get(columnIndex).toString()) + 1);
-            } else {
-                frequencies.put(row.get(columnIndex).toString(), 1);
+            int columnIndexBirth = allColumns.indexOf("BIRTHDATE");
+            int columnIndexDeath = allColumns.indexOf("DEATHDATE");
+
+            for (ArrayList<String> row : allRows) {
+                Integer age = getAge(row.get(columnIndexBirth), row.get(columnIndexDeath));
+                if (frequencies.containsKey(age.toString())) {
+                    frequencies.put(age.toString(), frequencies.get(age.toString()) + 1);
+                } else {
+                    frequencies.put(age.toString(), 1);
+                }
             }
+
+        } else {
+
+            int columnIndex = 0;
+
+            for (int i = 0; i < allColumns.size(); i++) {
+                if (allColumns.get(i).equals(columnName)) {
+                    columnIndex = i;
+                    break;
+                }
+            }
+
+            for (ArrayList<String> row : allRows) {
+                if (frequencies.containsKey(row.get(columnIndex).toString())) {
+                    frequencies.put(row.get(columnIndex).toString(), frequencies.get(row.get(columnIndex).toString()) + 1);
+                } else {
+                    frequencies.put(row.get(columnIndex).toString(), 1);
+                }
+            }
+
         }
 
         return frequencies;
