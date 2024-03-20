@@ -24,6 +24,7 @@ public class DownloadJSONServlet extends AbstractPatientsFeaturesServlet {
         } catch (JsonProcessingException exception) {
             request.setAttribute("errorMessage", exception.getMessage());
             redirectToError(request, response);
+            return;
         }
 
         response.setContentType("application/json");

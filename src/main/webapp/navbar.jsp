@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.io.IOException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -6,6 +7,7 @@
             !((String) request.getAttribute("activeNavTab") == "error")) ||
             ((String) request.getAttribute("activeNavTab") == "home" &&
                     !((String) request.getAttribute("filename") == null)));
+    if (request.getAttribute("columnNames") == null) response.sendRedirect("/");
     ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
 %>
 
