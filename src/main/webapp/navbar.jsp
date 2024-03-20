@@ -28,7 +28,7 @@
 
                         <% if (displayPatientStuff) { %>
                             <li class="nav-item">
-                                <a class="nav-link" href="<%= request.getContextPath() %>/patientList.html" id="patientList">Patient List</a>
+                                <a class="nav-link" href="#" id="patientList" onclick="resetSort(); resetSearch();">Patient List</a>
                             </li>
                         <% } %>
 

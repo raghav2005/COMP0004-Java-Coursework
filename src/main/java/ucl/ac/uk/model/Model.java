@@ -43,7 +43,7 @@ public class Model {
         assert files != null;
         for (File file : files) {
             if (file.isFile()) {
-                dataFiles.add(file.getName());
+                if (file.getName().substring(file.getName().lastIndexOf("."), file.getName().length()).equals(".csv"))  dataFiles.add(file.getName());
             }
         }
 
