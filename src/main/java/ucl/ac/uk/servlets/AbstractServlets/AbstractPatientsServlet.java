@@ -35,10 +35,7 @@ public abstract class AbstractPatientsServlet extends HttpServlet {
             model = ModelFactory.getModel(filename);
         } catch (IOException exception) {
             request.setAttribute("errorMessage", "Error: " + exception.getMessage());
-
-            ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
-            dispatch.forward(request, response);
+            redirectToError(request, response);
 
             return null;
         }
@@ -55,10 +52,7 @@ public abstract class AbstractPatientsServlet extends HttpServlet {
             columnNames = model.getDataFrame().getColumnNames();
         } catch (NullPointerException exception) {
             request.setAttribute("errorMessage", "Error: " + exception.getMessage());
-
-            ServletContext context = getServletContext();
-            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
-            dispatch.forward(request, response);
+            redirectToError(request, response);
 
             return null;
         }

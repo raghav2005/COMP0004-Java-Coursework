@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/error.html")
+@WebServlet({"/error.html", "/error"})
 public class ErrorPageServlet extends HttpServlet {
 
     @Override

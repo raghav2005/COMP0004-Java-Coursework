@@ -16,7 +16,7 @@ public class DownloadJSONServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String newFilename = model.getNewFilename(filename).substring(0, model.getNewFilename(filename).lastIndexOf(".")) + ".json";
+        String newFilename = model.getNewFilename(filename).substring(5, model.getNewFilename(filename).lastIndexOf(".")) + ".json";
         String data = null;
 
         try {

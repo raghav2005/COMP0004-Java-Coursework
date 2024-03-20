@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/patientList.html")
+@WebServlet({"/patientList.html", "/patientList"})
 public class ViewPatientsServlet extends AbstractPatientsServlet {
 
     @Override
