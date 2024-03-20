@@ -23,27 +23,6 @@ public abstract class AbstractPatientsServlet extends HttpServlet {
         dispatch.forward(request, response);
     }
 
-    protected String processFilename(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String filename = "data/" + request.getParameter("filename");
-
-        if (filename.equals("data/") || filename.equals("data/null")) {
-            response.sendRedirect(request.getContextPath() + "/");
-            return null;
-        }
-
-        try {
-            model = ModelFactory.getModel(filename);
-        } catch (IOException exception) {
-            request.setAttribute("errorMessage", "Error: " + exception.getMessage());
-            redirectToError(request, response);
-
-            return null;
-        }
-
-        return filename;
-
-    }
-
     protected ArrayList<String> processColumnNames(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         model = ModelFactory.getModel();
 
