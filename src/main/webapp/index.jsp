@@ -23,6 +23,8 @@
         <div class="col-md-4" style="text-align: center;">
             <form action="<%= request.getContextPath() %>/patientList.html" method="get">
                 <label for="filename">Choose Filename:</label>
+
+                <%-- dropdown with filenames --%>
                 <select name="filename" id="filename" required>
                     <%
                         ArrayList<String> fileNames = (ArrayList<String>) request.getAttribute("files");
@@ -31,6 +33,7 @@
                         <option value="<%= fileName %>"><%= fileName %></option>
                     <% } %>
                 </select>
+
                 <button type="submit" class="button">View Patient Data</button>
             </form>
         </div>

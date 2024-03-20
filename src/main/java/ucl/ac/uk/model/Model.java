@@ -19,6 +19,7 @@ public class Model {
 
     private DataFrame dataFrame;
 
+    // load data to DataFrame with DataLoader
     public void readData(String filename) throws IOException {
         try {
             dataFrame = DataLoader.loadData(filename);
@@ -43,6 +44,7 @@ public class Model {
         assert files != null;
         for (File file : files) {
             if (file.isFile()) {
+                // get all CSV files in data/
                 if (file.getName().substring(file.getName().lastIndexOf("."), file.getName().length()).equals(".csv"))  dataFiles.add(file.getName());
             }
         }
@@ -67,6 +69,7 @@ public class Model {
 
     }
 
+    // exact search - if time, implement fuzzy search through toggle
     public ArrayList<ArrayList<String>> search(String searchWord) {
         ArrayList<ArrayList<String>> allRows = new ArrayList<>();
         searchWord = searchWord == null ? "" : searchWord;
@@ -95,11 +98,13 @@ public class Model {
         LocalDate deathDate = null;
 
         if (deathDateStr != null && !deathDateStr.isEmpty()) {
+            // empty death date - set current date as death date
             deathDate = LocalDate.parse(deathDateStr);
         }
 
         if (deathDate != null && deathDate.isBefore(birthDate)) return -1;
 
+        // get time alive
         Period period;
         if (deathDate != null) period = Period.between(birthDate, deathDate);
         else period = Period.between(birthDate, currentDate);
@@ -114,6 +119,7 @@ public class Model {
         ArrayList<String> columnNames = dataFrame.getColumnNames();
 
         try {
+            // AGE not a column - treat separately
             if (columnName.equals("AGE") && !columnNames.contains("AGE")) {
 
                 int columnIndexBirth = columnNames.indexOf("BIRTHDATE");
@@ -121,6 +127,7 @@ public class Model {
 
                 if (columnIndexBirth == -1 || columnIndexDeath == -1) throw new NullPointerException();
 
+                // to compare rows for sorting
                 Comparator<ArrayList<String>> ageComparer = (row1, row2) -> {
                     String birthDateStr1 = row1.get(columnIndexBirth);
                     String deathDateStr1 = row1.get(columnIndexDeath);
@@ -139,7 +146,6 @@ public class Model {
         }
 
         int columnIndex = columnNames.indexOf(columnName);
-//        IntStream.range(0, columnNames.size()).filter(i -> columnNames.get(i).equals(columnName)).findFirst().orElse(0);
         Stream<ArrayList<String>> necessaryData = allRows.stream().sorted(Comparator.comparing(row -> row.get(columnIndex)));
 
         return !reversed ? necessaryData.collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(necessaryData.collect(Collectors.toList()).reversed());
@@ -150,6 +156,7 @@ public class Model {
 
             int numberOfColumns = dataFrame.getColumnNames().size();
 
+            // headers
             for (int i = 0; i < numberOfColumns; i++) {
                 if (i == numberOfColumns - 1) writer.write(dataFrame.getColumnNames().get(i));
                 else writer.write(dataFrame.getColumnNames().get(i) + ",");
@@ -177,10 +184,12 @@ public class Model {
         String formattedDateTime = currentDateTime.format(formatter);
         String fileNameNoExtension = originalFilename.substring(0, originalFilename.lastIndexOf("."));
 
+        // get first part of filename e.g. patients100 if filename = patients100_2024-03-20-05-05-34.csv
         return fileNameNoExtension.substring(0, !fileNameNoExtension.contains("_") ? fileNameNoExtension.length() : fileNameNoExtension.indexOf("_")) + "_" + formattedDateTime + ".csv";
     }
 
     public void deleteAndWrite(String originalFilename, String id) throws IOException {
+        // get all rows except row with ID id
         ArrayList<ArrayList<String>> allRows = getAllRows().stream().filter(row -> !row.getFirst().equals(id)).collect(Collectors.toCollection(ArrayList::new));
         String newFilename = getNewFilename(originalFilename);
 
@@ -198,6 +207,7 @@ public class Model {
 
     }
 
+    // for adding new patient - in relational database would be auto-increment
     public String generateUniqueUUID() {
         ArrayList<ArrayList<String>> allRows = getAllRows();
         String randomUUID;
@@ -214,7 +224,7 @@ public class Model {
 
     public void addAndWrite(String originalFilename, ArrayList<String> rowValues) throws IOException {
         ArrayList<ArrayList<String>> allRows = getAllRows();
-        allRows.add(rowValues);
+        allRows.add(rowValues); // add at end
 
         String newFilename = getNewFilename(originalFilename);
 
@@ -260,6 +270,7 @@ public class Model {
         ArrayList<String> allColumns = dataFrame.getColumnNames();
         HashMap<String, Integer> frequencies = new HashMap<>();
 
+        // AGE not a column - treat separately
         if (columnName.equals("AGE") && !dataFrame.getColumnNames().contains("AGE")) {
 
             int columnIndexBirth = allColumns.indexOf("BIRTHDATE");
@@ -286,6 +297,7 @@ public class Model {
             }
 
             for (ArrayList<String> row : allRows) {
+                // handle if in HashMap or not
                 if (frequencies.containsKey(row.get(columnIndex).toString())) {
                     frequencies.put(row.get(columnIndex).toString(), frequencies.get(row.get(columnIndex).toString()) + 1);
                 } else {

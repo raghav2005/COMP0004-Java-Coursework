@@ -13,6 +13,7 @@
   <div class="row">
     <div class="col-md-12">
       <table>
+
         <tr id="header_row">
           <%
             ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
@@ -24,12 +25,12 @@
           <form action="<%= request.getContextPath() %>/add" method="get" id="add_form">
             <th colspan="2">
               <button type="submit" class="button" style="height: 2em; width: 2em;">
-                <i class="fa fa-sharp fa-solid fa-plus"></i>
+                <i class="fa fa-sharp fa-solid fa-plus"></i> <%-- adding new patient --%>
               </button>
             </th>
           </form>
-
         </tr>
+
         <%
           ArrayList<ArrayList<String>> allRows = (ArrayList<ArrayList<String>>) request.getAttribute("allRows");
           if (!(allRows == null || allRows.isEmpty())) {

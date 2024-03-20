@@ -14,6 +14,7 @@
     <div class="row">
       <div class="col-md-1">
         <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
+          <%-- for no error back to patientList --%>
           <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />
           <input type="text" name="search_field" value="<%= request.getAttribute("search_field") == null ? "" : request.getAttribute("search_field") %>" hidden="hidden" />
           <button class="button" form="search_form" type="submit" style="width: 100%; margin-top: 0.25em;">Go Back</button>

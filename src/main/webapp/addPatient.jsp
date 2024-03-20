@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    String routePath = request.getAttribute("routePath") == null ? "/error.html" : (String) request.getAttribute("routePath");
+    String routePath = request.getAttribute("routePath") == null ? "/error.html" : (String) request.getAttribute("routePath"); // edit or add
     ArrayList<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
     String value;
 %>
@@ -21,8 +21,10 @@
 
             <form action="<%= request.getContextPath() + "/" + routePath %>" method="post" id="<%= routePath %>_form" style="margin-top: 0.5em;">
 
-                <input type="text" name="search_field" value="<%= request.getAttribute("search_field") == null ? "" : request.getAttribute("search_field") %>" hidden="hidden" />
+                <input type="text" name="search_field"
+                       value="<%= request.getAttribute("search_field") == null ? "" : request.getAttribute("search_field") %>" hidden="hidden" />
 
+                <%-- ID FIELD READONLY --%>
                 <div class="row" style="margin-bottom: 0.5em;">
                     <div class="col-md-1" style="text-align: left">
                         <label for="ID_field">ID:</label>
@@ -32,6 +34,7 @@
                     </div>
                 </div>
 
+                <%-- <column name>: <input field> --%>
                 <%
                     for (int i = 1; i < columnNames.size(); i++) {
                         value = columnNames.get(i).toUpperCase();
@@ -42,7 +45,9 @@
                             <label for="<%= value %>_field"><%= value %>:</label>
                         </div>
                         <div class="col-md-11">
-                            <input class="columnInputs" type="text" name="<%= value %>_field" id="<%= value %>_field" placeholder="<%= value %>" value="<%= request.getAttribute(value + "_value") == null ? "" : request.getAttribute(value + "_value") %>" style="width: 100%" />
+                            <%-- pre-populated if edit --%>
+                            <input class="columnInputs" type="text" name="<%= value %>_field" id="<%= value %>_field" placeholder="<%= value %>"
+                                   value="<%= request.getAttribute(value + "_value") == null ? "" : request.getAttribute(value + "_value") %>" style="width: 100%" />
                         </div>
                     </div>
 

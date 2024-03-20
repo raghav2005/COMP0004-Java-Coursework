@@ -29,6 +29,7 @@
                         </li>
 
                         <% if (displayPatientStuff) { %>
+                            <%-- only show once file has been selected --%>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" id="patientList" onclick="resetSort(); resetSearch();">Patient List</a>
                             </li>
@@ -36,6 +37,7 @@
 
                     </ul>
 
+                    <%-- change active highlighted navtab --%>
                     <script type="text/javascript">
                         document.getElementById("<%= (String) request.getAttribute("activeNavTab") %>").classList.add("active");
                     </script>
@@ -43,6 +45,7 @@
 
                 <% if (displayPatientStuff) { %>
 
+                    <%-- JSON Download --%>
                     <div class="JSONDownload" style="margin-right: 3em;">
                         <form action="<%= request.getContextPath() %>/JSONDownload" method="post" id="JSONDownload_form">
                             <button type="submit" class="button">
@@ -51,6 +54,7 @@
                         </form>
                     </div>
 
+                    <%-- GRAPH --%>
                     <div class="graph" style="margin-right: 3em;">
                         <form action="<%= request.getContextPath() %>/graph" method="get" id="graph_form">
 
@@ -71,6 +75,7 @@
                         </form>
                     </div>
 
+                    <%-- SORT --%>
                     <div class="sort" style="margin-right: 3em;">
                         <form action="<%= request.getContextPath() %>/sort" method="get" id="sort_form">
 
@@ -97,6 +102,7 @@
                         </form>
                     </div>
 
+                    <%-- SEARCH --%>
                     <div class="search">
                         <form action="<%= request.getContextPath() %>/search" method="get" id="search_form">
                             <input type="text" value="<%= (String) request.getAttribute("filename") %>" hidden="hidden" name="filename" />

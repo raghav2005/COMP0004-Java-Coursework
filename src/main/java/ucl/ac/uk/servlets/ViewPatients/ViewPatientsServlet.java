@@ -39,7 +39,7 @@ public class ViewPatientsServlet extends AbstractPatientsServlet {
             redirectToError(request, response);
             return;
         }
-        AbstractPatientsServlet.filename = processFilename(request, response);
+        AbstractPatientsServlet.filename = processFilename(request, response); // load new filename to static attribute inherited
 
         if (updateRequestAttributes(request, response) == null) {
             redirectToError(request, response);

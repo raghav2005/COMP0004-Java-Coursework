@@ -23,6 +23,7 @@ public class JSONWriter {
         HashMap<String, ArrayList<HashMap<String, String>>> jsonData = new HashMap<>();
         jsonData.put("patientData", data);
 
+        // format JSON on multiple lines instead of single line (no functional difference, just cleaner)
         return new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(jsonData);
     }
 

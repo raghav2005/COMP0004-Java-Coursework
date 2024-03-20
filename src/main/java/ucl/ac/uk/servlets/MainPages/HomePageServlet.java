@@ -23,10 +23,11 @@ public class HomePageServlet extends HttpServlet {
         try {
             files = model.getDataFiles();
         } catch (IOException exception) {
+            // will always be in data directory
             files.add("patients100.csv");
         }
 
-        request.setAttribute("activeNavTab", "home");
+        request.setAttribute("activeNavTab", "home"); // won't be able to see patientList in navbar
         request.setAttribute("files", files);
 
         ServletContext context = getServletContext();

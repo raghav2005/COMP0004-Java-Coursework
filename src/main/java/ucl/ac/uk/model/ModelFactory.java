@@ -6,6 +6,7 @@ public class ModelFactory {
 
     private static Model model;
 
+    // Singleton so static
     public static Model getModel(String filename) throws IOException {
         if (model == null) model = new Model();
 
@@ -18,6 +19,7 @@ public class ModelFactory {
         return model;
     }
 
+    // overload - don't want to enter filename unnecessarily every time
     public static Model getModel() {
         if (model == null) {
             model = new Model();

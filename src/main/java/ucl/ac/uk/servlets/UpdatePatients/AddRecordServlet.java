@@ -23,17 +23,19 @@ public class AddRecordServlet extends AbstractPatientsFeaturesServlet {
         request = updateRequestAttributes(request, response);
 
         ServletContext context = getServletContext();
-        RequestDispatcher dispatch = context.getRequestDispatcher("/addPatient.jsp");
+        RequestDispatcher dispatch = context.getRequestDispatcher("/addPatient.jsp"); // different JSP page
         dispatch.forward(request, response);
     }
 
+    // from patientList page to adding page
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("ID_value", model.generateUniqueUUID());
-        request.setAttribute("routePath", "add");
+        request.setAttribute("ID_value", model.generateUniqueUUID()); // for readonly ID field
+        request.setAttribute("routePath", "add"); // edit or add
         processRequestAndResponse(request, response);
     }
 
+    // adding new row to patientList and showing it
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ArrayList<String> columnNames = processColumnNames(request, response);

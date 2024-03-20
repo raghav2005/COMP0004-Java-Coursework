@@ -27,6 +27,7 @@ public abstract class AbstractPatientsFeaturesServlet extends AbstractPatientsSe
         }
         request = updateRequestAttributes(request, response);
 
+        // all subclasses to patientList
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/patientList.jsp");
         dispatch.forward(request, response);

@@ -65,6 +65,7 @@ public class DataFrame {
         return row;
     }
 
+    // overload for getting by id
     public ArrayList<String> getRow(String idColumnName, String idValue) {
         ArrayList<String> row = new ArrayList<>();
 

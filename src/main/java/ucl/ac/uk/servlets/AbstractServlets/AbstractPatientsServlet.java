@@ -17,6 +17,7 @@ public abstract class AbstractPatientsServlet extends HttpServlet {
     protected static String filename;
     protected static Model model;
 
+    // error page with request.setAttribute("errorMessage", <some value>) before this called
     protected void redirectToError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
@@ -56,6 +57,7 @@ public abstract class AbstractPatientsServlet extends HttpServlet {
 
         ArrayList<ArrayList<String>> allRows = getAllRowsAfterSearchSort(request);
 
+        // set all attributes
         request.setAttribute("columnNames", columnNames);
         request.setAttribute("allRows", allRows);
         request.setAttribute("activeNavTab", "patientList");

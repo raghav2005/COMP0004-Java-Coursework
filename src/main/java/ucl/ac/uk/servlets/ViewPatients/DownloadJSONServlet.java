@@ -16,6 +16,7 @@ public class DownloadJSONServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        // get filename w/ timestamp and change extention from .csv to .json (first 5 are data/)
         String newFilename = model.getNewFilename(filename).substring(5, model.getNewFilename(filename).lastIndexOf(".")) + ".json";
         String data = null;
 
@@ -27,9 +28,10 @@ public class DownloadJSONServlet extends AbstractPatientsFeaturesServlet {
             return;
         }
 
+        // let user download file & choose name & location
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + newFilename + "\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + newFilename + "\""); // default filename for new file
 
         PrintWriter writer = response.getWriter();
         writer.print(data);

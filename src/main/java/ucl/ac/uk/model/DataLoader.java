@@ -18,6 +18,7 @@ public class DataLoader {
 
             int counter = 0;
             for (CSVRecord csvRecord : csvParser) {
+                // first row headers
                 if (counter == 0) {
                     for (int i = 0; i < csvRecord.size(); i++) {
                         Column newColumn = new Column(csvRecord.get(i));

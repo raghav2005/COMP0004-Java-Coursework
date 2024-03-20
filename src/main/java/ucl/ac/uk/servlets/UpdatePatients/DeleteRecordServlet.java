@@ -13,7 +13,7 @@ public class DeleteRecordServlet extends AbstractPatientsFeaturesServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        model.deleteAndWrite(filename, request.getParameter("delete"));
+        model.deleteAndWrite(filename, request.getParameter("delete")); // id of row to delete
         super.processRequestAndResponse(request, response);
     }
 
