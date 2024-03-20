@@ -10,7 +10,7 @@ import java.io.Reader;
 
 public class DataLoader {
 
-    public DataFrame loadData(String filename) throws IOException {
+    public static DataFrame loadData(String filename) throws IOException {
         DataFrame dataFrame = new DataFrame();
 
         try (Reader reader = new FileReader(filename);

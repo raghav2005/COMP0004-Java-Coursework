@@ -21,7 +21,7 @@ public class Model {
 
     public void readData(String filename) throws IOException {
         try {
-            dataFrame = new DataLoader().loadData(filename);
+            dataFrame = DataLoader.loadData(filename);
         } catch (IOException exception) {
             throw new IOException(exception);
         }
